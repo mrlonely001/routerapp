@@ -1,0 +1,177 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>ikuailian设置</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			html,body{height: 100%;}
+			/*.mui-content{height: 100%;}*/
+			.mui-content .content_zyl{
+				width: 100%;
+			}
+			.mui-content .content_zyl .tab2_,.mui-content .content_zyl .tab3_{
+				display: none;
+			}
+			.mui-content  .content_zyl .cont_top .tip1_{
+				padding-top: 20px;
+			}
+			.mui-content  .content_zyl .cont_top .tip1_ p{
+				font-size: 16px;
+				color: #FFFFFF;
+				text-align: center;
+			}
+			/*.mui-content  .content_zyl .cont_top .tip2_ p{
+				font-size: 14px;
+				color: #083a65;
+				text-align: center;
+			}*/
+			.mui-content .content_zyl .cont_top .btns_ .radio_btn{
+				text-align: center;
+				color: #FFFFFF;
+			}
+			.mui-content .content_zyl .cont_top .btns_ .radio_btn>span,.mui-content .content_zyl .cont_top .btns_ .radio_btn>div{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .content_zyl .cont_top .btns_ .radio_btn input[type='radio']{
+				color: #FFFFFF;
+				border-color: #FFFFFF;
+			}
+			.mui-content .content_zyl .cont_top .btns_ .radio_btn input[type='radio']:before{
+				color: #FFFFFF;
+			}
+			
+			.mui-content .content_zyl .cont_bottom form.mui-input-group{
+				background-color:transparent;
+			}
+			.mui-content .content_zyl .cont_bottom .set_list span.txt{
+				display: inline-block;
+				vertical-align: middle;
+				padding-top: 11px;
+				padding-bottom: 11px;
+				color: #797979;
+			}
+			.mui-content .content_zyl .cont_bottom .check_btn{
+				margin-top: 20px;
+				text-align: center;
+			}
+			.mui-content .content_zyl .cont_bottom .check_btn>div{
+				display: inline-block;
+			}
+			.mui-content .content_zyl .cont_bottom .check_btn label{
+				display: inline-block;
+			}
+			.mui-content .content_zyl .cont_bottom button{
+				padding: 8px 0;
+			}
+
+			
+			
+			
+			
+			@media only screen and (min-width: 310px){
+				.mui-content .content_zyl{
+					height: 520px;
+				}
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 100px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 110px;
+				}
+				.mui-content .content_zyl{
+					height: 540px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 120px;
+				}
+				.mui-content .content_zyl{
+					height: 560px;
+				}
+			}
+						
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">ikuailian设置</h1>
+		</header>
+		<div class="mui-content">
+			<div class="content_zyl">
+				<div class="cont_top">
+					<div class="flex_content flex_dir_col per_h100">
+						<div class="tip1_ flex_1">
+							<p class="tab1_ tab_">请设置ikuailian的信息</p>
+						</div>
+						<div class="btns_ flex_1">
+							<div class="radio_btn">
+								<span>ikuailian无线服务</span>
+								<div class="mui-input-row mui-radio mui-left">
+									<label>ON</label>
+									<input name="radio1" type="radio">
+								</div>
+								<div class="mui-input-row mui-radio mui-left">
+									<label>OFF</label>
+									<input name="radio1" type="radio">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="cont_bottom">
+					<form class="mui-input-group" style="margin: 30px 0 0;">
+					    <div class="mui-input-row set_list">
+					    	<label>WI-FI名称：</label>
+					        <span class="txt">ikuailian</span>
+					    </div>
+					   	<div class="mui-input-row mui-password set_list isShow">
+					   		<label>WI-FI密码：</label>
+							<input type="password" class="mui-input-password" placeholder="请输入密码">
+						</div>
+						<div class="mui-input-row mui-password set_list isShow">
+					   		<label>确认密码：</label>
+							<input type="password" class="mui-input-password" placeholder="请再次密码">
+						</div>
+					</form>
+					<div class="mui-block check_btn">
+						<div class="mui-input-row mui-checkbox mui-left">
+							<label>免费开放WI-FI(不设置密码)</label>
+							<input name="checkbox" value="Item 1" type="checkbox" >
+						</div>
+					</div>
+					<div class="mui-block" style="padding: 15px;margin-top: 30px;">
+						<button type="button" class="mui-btn mui-btn-blue mui-btn-block">保&nbsp;&nbsp;&nbsp;存</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			
+			//是否开放WI-F
+			mui(".check_btn").on("change","input",function(){
+				var pass_nodes = mui(".isShow");
+				if(this.checked){
+					pass_nodes.each(function(){
+						this.style.display = "block";
+					});
+				}else{
+					pass_nodes.each(function(){
+						this.style.display = "none";
+					});
+				}
+			});
+		</script>
+</html>

@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>关于</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<style>
+			html,body{width: 100%;height: 100%;}
+			.mui-content{height: 100%;}
+			.mui-content .cont_wrap .cont_top{
+				background: #1782DD;
+			}
+			.mui-content .cont_wrap .cont_top .cont_center{
+				text-align: center;
+
+			}
+			.mui-content .cont_wrap .cont_top .cont_center .logo{
+				margin: 0 auto;
+				width: 85px;
+				height: 85px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+				background-position: -300px -322px;
+				margin-bottom: 20px;
+				
+			}
+			.mui-content .cont_wrap .cont_top p,.mui-content .cont_wrap .cont_top span{
+				color: #FFFFFF;
+			}
+			
+			.mui-content .cont_wrap .cont_bottom{
+				position: relative;
+			}
+			.mui-content .cont_wrap .cont_bottom .line_3{
+				position: absolute;
+				width: 100%;
+				padding: 15px;
+			}
+			.mui-content .cont_wrap .cont_bottom .line_3 button{
+				padding: 8px 0;
+			}
+			.mui-content .cont_wrap .cont_bottom .line_1{
+				position: absolute;
+				bottom: 15px;
+				width: 100%;
+			}
+			.mui-content .cont_wrap .cont_bottom .line_1 p{
+				text-align: center;
+			}
+			@media only screen and (min-width: 310px){
+				.mui-content .cont_wrap .cont_top .cont_center{
+					margin-top: 50px;
+				}
+				.mui-content .cont_wrap .cont_bottom .line_3{
+					top: 60px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .cont_wrap .cont_top .cont_center{
+					margin-top: 60px;
+				}
+				.mui-content .cont_wrap .cont_bottom .line_3{
+					top: 70px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .cont_wrap .cont_top .cont_center{
+					margin-top: 70px;
+				}
+				.mui-content .cont_wrap .cont_bottom .line_3{
+					top: 80px;
+				}
+			}
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">关于</h1>
+		</header>
+		<div class="mui-content">
+			<div class="cont_wrap flex_content flex_dir_col">
+				<div class="flex_1 cont_top">
+					<div class="cont_center">
+						<div class="logo"></div>
+						<p>快连无线路由管家</p>
+						<span>V1.1.1</span>
+					</div>
+				</div>
+				<div class="flex_1 cont_bottom">
+					<div class="line_3">
+						<div class="ok_btn">
+							<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="officialwebsite">官&nbsp;&nbsp;&nbsp;网</button>
+						</div>
+					</div>
+					<div class="line_1">
+						<p>网际星辰文化传媒(北京)有限公司</p>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui(".mui-content").on("tap","#officialwebsite",function(){
+				mui.openWindow({
+					url:"http://www.ikuailian.com",
+					id:"one_set",
+					show:{
+						duration:300
+					}
+				});
+			});
+		</script>
+</html>

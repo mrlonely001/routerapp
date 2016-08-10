@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>重启路由器</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style>
+			html,body{height: 100%;}
+			.mui-content{height: 100%;width: 100%;}
+			
+			.mui-content .con_{padding: 15px;}
+			.mui-content .con_ p{
+				font-size: 17px;
+				text-align: center;
+			}
+			.mui-content .con_ p:first-child{
+				margin-top: 45px;
+			}
+			
+			@media only screen and (min-width: 310px){
+				.mui-content .con_ p:first-child{
+					margin-top: 30px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .con_ p:first-child{
+					margin-top: 45px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .con_ p:first-child{
+					margin-top: 60px;
+				}
+			}
+			
+			.mui-content button{margin: 0 auto;font-size: 18px;font-weight:600;padding: 8px 0;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">重启路由器</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="flex_content flex_dir_col">
+		    	<div class="flex_4 con_">
+		    		<p>路由器重启过程中将会</p>
+		    		<p>断开网络连接，请耐心等待...</p>
+		    	</div>
+		    	<div class="flex_1 con_">
+		    		<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="restart">重启路由器</button>
+		    	</div>
+		    </div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/main.js"></script>
+	<!--<script src="../../js/vconsole.min.js"></script>-->
+	<script type="text/javascript">
+		WIFI_SSID = '';
+		AP_ADDR = '';
+		mui.init();
+		mui.plusReady(function(){
+      		WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      		AP_ADDR = plus.storage.getItem('AP_ADDR');
+      		//重启按钮事件绑定
+      		mui(".flex_1").on("tap","#restart",function(e){
+      		plus.nativeUI.confirm( "是否确定重新启动路由器？", function(e){
+                       (e.index==0)?restart():console.log( "No" );
+                	}, "提示", ["是","否"] );
+      		
+      		});
+      	});
+      	
+      	  
+      	
+      	function restart(){//重启路由器
+      		mui.ajax(AP_ADDR+'/s/wifi/sysreboot_itf',{
+				data:{
+					req:'reboot'
+				},
+				dataType:'json',
+				type:'get',
+				timeout:10000,
+				headers:{'Content-Type':'application/json'}, 
+				success:function(data){
+					check987(data);
+					if(data.ret == 1){
+						mui.toast('重启成功,请关闭App登路由器重启后重新登录');
+					}else{
+						mui.toast('重启失败');
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					mui.toast('提交成功');
+					console.log(type);
+				}
+			});
+      	}
+	</script>
+</html>

@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>修改密码</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			html,body{height: 100%;}
+			/*.mui-content{height: 100%;}*/
+			.mui-content .content_zyl{
+				width: 100%;
+			}
+			.mui-content .content_zyl .tab2_,.mui-content .content_zyl .tab3_{
+				display: none;
+			}
+			.mui-content  .content_zyl .cont_top .tip1_ p{
+				font-size: 16px;
+				color: #FFFFFF;
+				text-align: center;
+			}
+			.mui-content  .content_zyl .cont_top .tip2_ p{
+				font-size: 14px;
+				color: #083a65;
+				text-align: center;
+			}
+			
+			
+			
+			.mui-content .content_zyl .cont_bottom form.mui-input-group{
+				background-color:transparent;
+			}
+			.mui-content .content_zyl .cont_bottom .change_btns{
+				margin-top: 30px;
+				text-align: center;
+			}
+			.mui-content .content_zyl .cont_bottom .change_btns .do_btn{
+				display: inline-block;
+				width: 35px;
+				height: 35px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+				
+			}
+			.mui-content .content_zyl .cont_bottom .change_btns .do_btn.pre_{
+				background-position: -250px -62px;
+			}
+			.mui-content .content_zyl .cont_bottom .change_btns .do_btn.next_{
+				margin-left: 40px;
+				background-position: -307px -62px;
+			}
+			
+			
+			@media only screen and (min-width: 310px){
+				.mui-content .content_zyl{
+					height: 520px;
+				}
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 100px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 110px;
+				}
+				.mui-content .content_zyl{
+					height: 540px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 120px;
+				}
+				.mui-content .content_zyl{
+					height: 560px;
+				}
+			}
+						
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">一键设置</h1>
+		</header>
+		<div class="mui-content">
+			<div class="content_zyl">
+				<div class="cont_top">
+					<div class="flex_content flex_dir_col per_h100">
+						<div class="progress_ flex_1">
+							<div class="third_"></div>
+						</div>
+						<div class="tip1_ flex_1">
+							<p class="tab1_ tab_">请修改路由设置登录密码</p>
+						</div>
+						<div class="tip2_ flex_1">
+							<p>如使用初始密码登录，为保障您的安全，</p>
+							<p>请修改密码</p>
+						</div>
+					</div>
+				</div>
+				<div class="cont_bottom">
+					<form class="mui-input-group" style="margin: 30px 0 0;">
+					    <div class="mui-input-row mui-password set_list">
+							<input type="password" class="mui-input-password" placeholder="原登录密码" id="prepass">
+						</div>
+					   	<div class="mui-input-row mui-password set_list">
+							<input type="password" class="mui-input-password" placeholder="新登录密码" id="newpass">
+						</div>
+						<div class="mui-input-row mui-password set_list">
+							<input type="password" class="mui-input-password" placeholder="确认密码" id="renewpass">
+						</div>
+					</form>
+					<div class="change_btns">
+						<div class="mui-action-back pre_ do_btn"></div>
+						<div class="next_ do_btn"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+			AP_ADDR = '';
+	    	WIFI_SSID = '';
+	    	curweb = '';
+			mui.init();
+			mui.plusReady(function(){
+				WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      			AP_ADDR = plus.storage.getItem('AP_ADDR');
+				curweb = plus.webview.currentWebview();
+				
+			});
+			mui.init();
+			//获取原登录密码
+			function getlogpass(){
+				
+			}
+			
+			//下一步
+			mui(".change_btns").on("tap",".next_",function(){
+				if(mui('#renewpass')[0].value == ''){
+					mui.toast('密码不能为空');return false;
+				}else if(mui('#renewpass')[0].value != mui('#newpass')[0].value){
+					mui.toast('两次密码不一致');return false;
+				}else if(0){//验证原密码
+					
+				}else{//验证通过
+					mui.openWindow({
+						url:"./over.html",
+						id:"over",
+						show:{
+	    					duration:200
+	    				},
+	    				extras:{
+	    					loginpass:mui('#renewpass')[0].value,
+	    					wifipass : curweb.wifipass,
+	    					SSID : curweb.SSID,
+	    					openornot : curweb.openornot,
+	    					wantype : curweb.wantype
+	    				}
+					});
+				}
+				
+			});
+		</script>
+</html>

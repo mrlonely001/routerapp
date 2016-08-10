@@ -1,0 +1,110 @@
+
+/*首页  s*/
+#welcom{
+	width: 100%;
+	height: 100%;
+	background: #1782dd;
+}
+#welcom .welcom_page{
+	height: 100%;
+	width: 100%;
+	display:flex;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:-webkit-box-flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	background: #1782dd;
+}
+#welcom .welcom_page>section{
+	flex: 4;
+	-webkit-flex:4;
+	-webkit-box-flex:4;
+	box-sizing: border-box;
+}
+#welcom .welcom_page>section .logo{
+	width: 287px;
+	height: 135px;
+	margin: 0 auto;
+	background: url(../images/logo1.png) no-repeat;
+	background-size: 287px 135px;
+	position: relative;
+	top: 64px;
+}
+#welcom .welcom_page>footer{
+	flex: 1;
+	-webkit-flex:1;
+	-webkit-box-flex:1;
+}
+#welcom .welcom_page>footer .reload_{
+	display: none;
+}
+#welcom .welcom_page>footer .reload_ a{
+	width: 100px;
+	text-align: center;
+	margin: 0 auto;
+	color: #FFFFFF;
+	text-decoration: underline;
+	display: block;
+}
+#welcom .welcom_page>footer h3{
+	font-weight: bold;
+	font-size: 17px;
+	text-align: center;
+	color: #FFFFFF;
+	margin-bottom: 20px;
+}
+#welcom .welcom_page>footer .image{
+	width: 30px;
+	height: 30px;
+	display: block;
+	background: url(../images/loading1.png) no-repeat;
+	background-size: 30px 30px;
+	margin: 0 auto;
+	animation:turn_run 1.5s linear infinite;
+	-webkit-animation:turn_run 1.5s linear infinite;
+}
+
+@keyframes turn_run{
+	0%{transform: rotate(0deg);}
+	100%{transform: rotate(360deg);}
+}
+@-webkit-keyframes turn_run{
+	0%{-webkit-transform: rotate(0deg);}
+	100%{-webkit-transform: rotate(360deg);}
+}
+/*首页  e*/
+
+
+
+/*一键设置  s*/
+.mui-content .content_zyl .cont_top{
+	height: 50%;
+	background: #1782DD;
+}
+.mui-content .content_zyl .cont_top .progress_>div{
+	width: 290px;
+	margin: 0 auto;
+	height: 45px;
+	background: url(../images/sprite1.png) no-repeat;
+	background-size: 388px 758px;
+}
+.mui-content .content_zyl .cont_top .progress_>.first_{
+	background-position: 0 -250px;
+}
+.mui-content .content_zyl .cont_top .progress_>.second_{
+	background-position: 0 -330px;
+}
+.mui-content .content_zyl .cont_top .progress_>.third_{
+	background-position: 0 -309px;
+}
+.mui-content .content_zyl .cont_top .progress_>.fourth_{
+	background-position: 0 -403px;
+}
+
+
+.mui-content .content_zyl .cont_bottom{
+	height: 50%;
+}
+
+/*一键设置  e*/

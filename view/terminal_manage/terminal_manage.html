@@ -1,0 +1,119 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>终端管理</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<style>
+			.mui-content .mui-block{
+				padding: 5px 15px;
+				color: #868686;
+				font-size: 14px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span.icon_{
+				width: 24px;
+				height: 24px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+				background-position: -309px -10px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .terminal_info{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .terminal_info h4{
+				font-size: 16px;
+			}
+			[v-cloak]{display: none;}
+		</style>
+		<script src="../../js/vue.min.js" ></script>
+	</head>
+	<body id="comlu">
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">终端管理</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-block"><span>接入设备( </span><span v-cloak >{{num}}</span><span> )</span></div>
+		    <ul class="mui-table-view">
+	            <li class="mui-table-view-cell" v-for="item in items" v-cloak>
+	                <a class="mui-navigate-right device_list">
+	                    <span class="icon_"></span>
+                		<div class="terminal_info">
+                			<h4 class="name">{{item.name}}</h4>
+                			<h5 class="onlineTime">{{item.onlineTime}}</h5>
+                			<input type="hidden" class="ip" value={{item.ip}} />
+                			<input type="hidden" class="mac" value={{item.mac}} />
+                			<input type="hidden" class="time" value={{item.time}} />
+                		</div>
+	                </a>
+	            </li>
+		    </ul>
+		</div>
+		
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/main.js"></script>
+	<script type="text/javascript">
+		AP_ADDR = '';
+    	WIFI_SSID = '';
+		mui.init();
+		mui(".mui-content").on("tap",".device_list",function(){
+			mui.openWindow({
+				url:"./terminal_info.html",
+				id:"terminal_info",
+				show:{
+    				duration:150
+    			},
+    			waiting:{
+    				autoShow:false
+    			},
+    			extras:{
+    				ip:mui('.ip',this)[0].value,
+    				mac:mui('.mac',this)[0].value,
+    				name:mui('.name',this)[0].innerHTML,
+    				time:mui('.time',this)[0].value,
+    				onlineTime:mui('.onlineTime',this)[0].innerHTML
+    			}
+			});
+		});
+		
+		mui.plusReady(function(){
+			WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      		AP_ADDR = plus.storage.getItem('AP_ADDR');
+			dhcpclient_itf();
+		});
+		function dhcpclient_itf(){
+			mui.ajax(AP_ADDR+'/s/wifi/dhcpclient_itf',{
+				data:{},
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json'}, 
+				success:function(data){//本地存储路由所有状态数据
+						check987(data);
+						app = new Vue({
+							  el: '#comlu',
+							  data: {
+							    items: data.data.usrInfo,
+							    num:data.data.usrInfo.length
+							  }
+						});
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					plus.nativeUI.alert('连接超时');
+					console.log(type);
+				}
+			});
+			
+		}
+	</script>
+</html>

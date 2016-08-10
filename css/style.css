@@ -1,0 +1,159 @@
+html{width: 100%;height: 100%;font-family: "microsoft yahei","微软雅黑";}
+body{
+	width: 100%;
+	height: 100%;
+}
+
+img{
+	width: 100%;
+	height: 100%;
+}
+
+
+.require{
+	font-size: 16px;
+	color: red;
+}
+
+.f_r{
+	float:right;
+}
+
+
+
+.per_h100{
+	height: 100% !important;
+}
+.per_h50{
+	height: 50% !important;
+}
+.per_w100{
+	width: 100% !important;	
+}
+.per_w50{
+	width: 50% !important;
+}
+
+/*头部*/
+header.mui-bar-nav{
+	background: #1782dd;
+	color: #FFFFFF;
+	box-shadow: none;
+	-webkit-box-shadow: none;
+}
+header.mui-bar-nav h1{color: #FFFFFF;}
+header.mui-bar-nav .mui-action-back{
+	color: #FFFFFF;
+}
+header a{color: #FFFFFF;}
+
+/*弹性盒*/
+.flex_dir_col{
+	flex-direction: column;
+	height: 100%;
+}
+.flex_content{
+	display:flex;
+	display:-webkit-box;
+	display:-webkit-flex;
+	display:-webkit-box-flex;
+}
+.flex_1{
+	flex:1;
+	-webkit-flex:1;
+	-webkit-box-flex:1;
+}
+.flex_2{
+	flex:2;
+	-webkit-flex:2;
+	-webkit-box-flex:2;
+}
+.flex_3{
+	flex:3;
+	-webkit-flex:3;
+	-webkit-box-flex:3;
+}
+.flex_4{
+	flex:4;
+	-webkit-flex:4;
+	-webkit-box-flex:4;
+}
+.flex_5{
+	flex:5;
+	-webkit-flex:5;
+	-webkit-box-flex:5;
+}
+.flex_6{
+	flex:6;
+	-webkit-flex:6;
+	-webkit-box-flex:6;
+}
+
+
+
+
+
+
+/*@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){/* 兼容iphone5 */}
+@media only screen and (max-device-width :480px){ }
+@media only screen and (min-device-width :481px){ }
+
+/*6*/
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){ }
+
+/*6+*/
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){ }
+
+/*魅族*/
+@media only screen and (min-device-width :1080px) and (-webkit-min-device-pixel-ratio : 2.5){ }
+
+/*mate7*/
+@media only screen and (min-device-width :1080px) and (-webkit-min-device-pixel-ratio : 3){ }
+
+/*4 4s*/
+@media only screen and (device-height :480px) and (-webkit-device-pixel-ratio:2){ }
+*/
+
+
+
+html {
+    font-size : 20px;
+}
+@media only screen and (min-width: 401px){
+    html {
+        font-size: 25px !important;
+    }
+}
+@media only screen and (min-width: 428px){
+    html {
+        font-size: 26.75px !important;
+    }
+}
+@media only screen and (min-width: 481px){
+    html {
+        font-size: 30px !important; 
+    }
+}
+@media only screen and (min-width: 569px){
+    html {
+        font-size: 35px !important; 
+    }
+}
+@media only screen and (min-width: 641px){
+    html {
+        font-size: 40px !important; 
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

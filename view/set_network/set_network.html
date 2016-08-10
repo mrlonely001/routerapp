@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>网络设置</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style>
+			.mui-content .mui-table-view:last-child{
+				margin-top: 15px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span.icon_{
+				width: 24px;
+				height: 24px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .set_wifi .icon_{
+				background-position: -18px -175px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .set_ikuailian .icon_{
+				background-position: -77px -175px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .outer_set .icon_{
+				background-position: -142px -175px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .inner_set .icon_{
+				background-position: -201px -175px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .dhcp_service .icon_{
+				background-position: -261px -175px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .static_ip .icon_{
+				background-position: -316px -175px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .free_auther .icon_{
+				background-position: -259px -120px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">网络设置</h1>
+		</header>
+		<div class="mui-content">
+		    <ul class="mui-table-view">
+	            <li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right set_wifi">
+	                    <span class="icon_"></span>
+                		<span>WI-FI设置</span>
+	                </a>
+	            </li>
+	            <!--<li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right set_ikuailian">
+	                    <span class="icon_"></span>
+                		<span>ikuailian设置</span>
+	                </a>
+	            </li>-->
+	            <li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right outer_set">
+	                    <span class="icon_"></span>
+                		<span>外网设置</span>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right inner_set">
+	                    <span class="icon_"></span>
+                		<span>内网设置</span>
+	                </a>
+	            </li>
+	        </ul>
+	        <ul class="mui-table-view">
+	            <li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right dhcp_service">
+	                    <span class="icon_"></span>
+                		<span>DHCP服务</span>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right static_ip">
+	                    <span class="icon_"></span>
+                		<span>静态分配IP</span>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right free_auther">
+	                    <span class="icon_"></span>
+                		<span>免认证设置</span>
+	                </a>
+	            </li>
+	        </ul>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		//设置wifi
+		mui(".mui-content").on("tap",".set_wifi",function(){
+			openWin("set_wifi_only");
+		});
+		//外网设置
+		mui(".mui-content").on("tap",".outer_set",function(){
+			openWin("outer_set");
+		});
+		//内网设置
+		mui(".mui-content").on("tap",".inner_set",function(){
+			openWin("inner_set");
+		});
+		//dhcp设置
+		mui(".mui-content").on("tap",".dhcp_service",function(){
+			openWin("dhcp_set_only");
+		});
+		//静态ip
+		mui(".mui-content").on("tap",".static_ip",function(){
+			openWin("static_ip_set");
+		});
+		//免认证设置设置
+		mui(".mui-content").on("tap",".free_auther",function(){
+			openWin("free_auther_set");
+		});
+		
+		function openWin(name){
+			var name_ = name?name:"";
+			mui.openWindow({
+				url:"./"+name_+".html",
+				id:name_,
+				show:{
+    				duration:150
+    			},
+    			waiting:{
+    				autoShow:false
+    			}
+			});
+		}
+</script>
+</html>

@@ -1,0 +1,116 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>内网设置</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			
+			.mui-block button{
+				padding: 8px 0;
+			}
+			
+			@media only screen and (min-width: 310px){
+				.mui-block{
+					margin-top: 50px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-block{
+					margin-top: 60px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-block{
+					margin-top: 70px;
+				}
+			}
+						
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">内网设置</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group" style="margin-top: 15px;">
+			    <div class="mui-input-row">
+			        <input type="text" class="mui-input-clear" placeholder="请输入IP地址" id="ip_addr">
+			    </div>
+			    <div class="mui-input-row">
+			        <input type="text" class="mui-input-clear" placeholder="请输入子网掩码" id="newmask">
+			    </div>
+			</form>
+			<div class="mui-block" style="padding: 15px;">
+				<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="save">保&nbsp;&nbsp;&nbsp;存</button>
+			</div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/main.js"></script>
+		<script type="text/javascript">
+			AP_ADDR = '';
+	    	WIFI_SSID = '';
+			mui.init();
+			mui.plusReady(function(){
+				WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      			AP_ADDR = plus.storage.getItem('AP_ADDR');
+				getlaninfo();
+			});
+			function getlaninfo(){
+				mui.get(AP_ADDR+'/s/wifi/advlan_itf',function(data){
+					check987(data);
+					mui('#ip_addr')[0].value = data.text_ip_addr;
+					mui('#newmask')[0].value = data.newmask;
+				},'json');
+			}
+			
+			mui(".mui-block").on("tap","#save",function(){
+				var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
+				var msg = "",flagReq = true;
+				mui("input",this.parentNode.parentNode).each(function(){
+					if(!reg.test(this.value)){//placeholder
+						var pder = this.placeholder.substring(3);
+						msg = pder+"格式不正确";
+						flagReq = false;
+						return false;
+					}
+				});
+				if(!flagReq){
+					mui.toast(msg);
+					return false;
+				}
+				plus.nativeUI.confirm( "提交保存后，路由器会自动重启以保证设置生效，您的手机将断开wifi，请重新连接wifi后再打开APP，您是否保存？", function(e){
+                       (e.index==0)?changelan():console.log( "No" );
+                	}, "提示", ["是","否"] );
+			});
+			
+			function changelan(){
+				mui.ajax({
+			        url:AP_ADDR+"/s/wifi/advlanconfig_itf",  
+					type : "get",
+				    data:{
+				    	text_ip_addr:mui('#ip_addr')[0].value,
+				    	newmask:mui('#newmask')[0].value
+				    },
+				    dataType:"json",
+				    success : function(data){
+				    	check987(data);
+						if(data['st']=='ok'){
+							mui.toast('设置成功');
+						}else{ 
+							mui.toast(data['err']);
+						}
+					},
+					error : function() {
+						mui.toast("提交成功");
+					}
+				});
+			}
+		</script>
+</html>

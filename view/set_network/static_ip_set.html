@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>静态分配ip</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			.mui-content .mui-block{
+				padding: 5px 15px;
+				color: #868686;
+				font-size: 14px;
+			}	
+			.mui-content .mui-table-view .mui-table-view-cell span{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span.icon_{
+				width: 24px;
+				height: 24px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+				background-position: -309px -10px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .terminal_info{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .terminal_info h4{
+				font-size: 16px;
+			}
+			.mui-content .mui-table-view-cell .device_list .delete_btn{
+				display: inline-block;
+				vertical-align: middle;
+				width: 24px;
+				height: 24px;
+				/*background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+				background-position: -309px -10px;*/
+				margin-top: 10px;
+				color:red;
+			}		
+			[v-cloak]{display: none;}
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">静态分配IP</h1>
+		    <a style="color: #FFFFFF;" class="mui-action-menu mui-icon mui-icon-plusempty mui-pull-right add_device" href="#topPopover"></a>
+		</header>
+		<div class="mui-content">
+			<div class="mui-block"><span>接入设备( </span><span v-cloak>{{num}}</span><span> )</span></div>
+			<ul class="mui-table-view">
+	            <li class="mui-table-view-cell" v-for="item in items" v-cloak>
+	                <a class="device_list">
+	                    <span class="icon_"></span>
+                		<div class="terminal_info">
+                			<h4 class="name" id="pcname">{{item.pcname}}</h4>
+                			<h5 class="onlineTime" id="ip">{{item.ip}}</h5>
+                			<h5 class="onlineTime" id="mac">{{item.mac}}</h5>
+                		</div>
+                		<span class="delete_btn f_r mui-icon mui-icon-trash" id="delet_static"></span>
+	                </a>
+	            </li>
+		    </ul>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/main.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script type="text/javascript">
+			AP_ADDR = '';
+	    	WIFI_SSID = '';
+			mui.init();
+			mui.plusReady(function(){
+				WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      			AP_ADDR = plus.storage.getItem('AP_ADDR');
+				getstaticlist();
+			});
+			function getstaticlist(){
+				mui.get(AP_ADDR+'/s/wifi/lanstatic_itf',function(data){
+					check987(data);
+					app = new Vue({
+							  el: '.mui-content',
+							  data: {
+							    items: data.data.iplist,
+							    num:data.data.iplist.length
+							  }
+						});
+				},'json');
+			}
+			
+			mui("header").on("tap",".add_device",function(){//增加静态ip
+					mui.openWindow({
+					url:"./add_device.html",
+					id:"add_device",
+					show:{
+	    				duration:150
+	    			},
+	    			waiting:{
+	    				autoShow:false
+	    			}
+				});
+			});
+			
+			mui(".mui-content").on("tap","#delet_static",function(){//删除静态ip
+				var pcname = mui('#pcname',this.parent)[0].innerHTML;
+				var ip = mui('#ip',this.parent)[0].innerHTML;
+				var mac = mui('#mac',this.parent)[0].innerHTML;
+				mui.ajax({
+					url : AP_ADDR+"/s/wifi/lanstaticdel_itf?pcname="+pcname+"&ip="+ip+"&mac="+mac,
+					dataType : "json",
+					type : "get",
+					success : function(data) {
+						check987(data);
+						if (data.err == 'ok') {
+							mui.toast("删除成功");
+							mui.back();
+						} else { 
+							mui.toast("删除静态ip设置失败");
+						}
+					},
+					error : function() {
+						mui.toast("删除静态ip设置提交失败");
+					}
+				});
+			});
+			
+		</script>
+</html>

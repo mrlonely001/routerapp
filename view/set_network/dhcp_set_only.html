@@ -1,0 +1,189 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>DHCP设置</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			.mui-content .mui-table-view .nostyle_list{
+				position: relative;
+				overflow: hidden;
+				padding: 11px 15px;
+			}
+			.mui-content .mui-table-view .nostyle_list:after{
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 15px;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}
+			
+			.mui-content .mui-table-view .mui-switch.mui-active{
+				border: 2px solid #1782DD;
+				background-color: #1782DD;
+			}
+			.mui-content .mui-table-view .nostyle_list input{
+				width: 32px;
+				height: 24px;
+				border: 1px solid #E2E2E2;
+				padding: 2px;
+				text-align: center;
+				font-size: 14px;
+			}
+			
+			.mui-block button{
+				padding: 8px 0;
+			}
+			
+			@media only screen and (min-width: 310px){
+				.mui-block{
+					margin-top: 50px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-block{
+					margin-top: 60px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-block{
+					margin-top: 70px;
+				}
+			}
+						
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">DHCP设置</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group" style="margin-top: 15px;">
+			    <ul class="mui-table-view">
+			            <li class="nostyle_list">
+			                <span class="txt">DHCP服务</span>
+			                <div class="switch f_r">
+			                	<div class="mui-switch" id="dhcpswitch">
+									<div class="mui-switch-handle"></div>
+								</div>
+			                </div>
+			            </li>
+			            <li class="nostyle_list">
+			                <span class="txt">IP分配范围</span>
+			                <div class="f_r">
+			                	<span id="prefix"></span><span><input type="text" maxlength="3" class="ip_range" id="text_bootp_from">-<input type="text" maxlength="3" class="ip_range" id="text_bootp_to"></span>
+			                </div>
+			            </li>
+			            <li class="nostyle_list">
+			                <span class="txt">租用期限</span>
+			                <div class="f_r">
+			                	<span><input type="text" maxlength="3" id="bootday" class="num_req">天<input type="text" maxlength="3" id="boothour" class="num_req">小时</span>
+			                </div>
+			            </li>
+			        </ul>
+			</form>
+			<div class="mui-block" style="padding: 15px;">
+				<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="save">保&nbsp;&nbsp;&nbsp;存</button>
+			</div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/main.js"></script>
+		<script type="text/javascript">
+			AP_ADDR = '';
+			mui.init();
+			mui.plusReady(function(){
+				WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      			AP_ADDR = plus.storage.getItem('AP_ADDR');
+				getdhcpinfo();
+			});
+			mui.init();
+			function getdhcpinfo(){
+				mui.get(AP_ADDR+'/s/wifi/advdhcp_itf',function(data){
+					check987(data);
+					if(data.data.dhcp_status == 1){
+						document.getElementById('dhcpswitch').className = 'mui-switch mui-active';
+					}
+					mui('#prefix')[0].innerHTML = data.data.ipprefix;
+					mui('#text_bootp_from')[0].value = data.data.text_bootp_from;
+					mui('#text_bootp_to')[0].value = data.data.text_bootp_to;
+					mui('#bootday')[0].value = data.data.dhcp_days;
+					mui('#boothour')[0].value = data.data.dhcp_hours;
+				},'json');
+			}
+			
+			mui(".mui-block").on("tap","#save",function(){
+				var flagVali = true;
+				mui(".ip_range",this.parentNode.parentNode).each(function(){
+					if(!/^\d{1,2}|1\d\d|2[0-4]\d|25[0-5]$/.test(this.value)){
+						flagVali = false;
+						return false;
+					}
+				});
+				if(!flagVali){
+					mui.toast("ip范围输入不正确");
+					return false;
+				}
+				if(mui(".ip_range",this.parentNode.parentNode)[0].value>mui(".ip_range",this.parentNode.parentNode)[1].value){
+					mui.toast("ip范围从小到大");
+					return false;
+				}
+				mui(".num_req",this.parentNode.parentNode).each(function(){
+					if(!this.value||isNaN(this.value)){
+						flagVali = false;
+						return false;
+					}
+				});
+				if(!flagVali){
+					mui.toast("租用期限为纯数字");
+					return false;
+				}
+				
+				
+				plus.nativeUI.confirm( "提交保存后，路由器会自动重启以保证设置生效，您的手机将断开wifi，请重新连接wifi后再打开APP，您是否保存？", function(e){
+                       (e.index==0)?changedhcp():console.log( "No" );
+                	}, "提示", ["是","否"] );
+				
+			});
+			
+			function changedhcp(){
+				if(document.getElementById('dhcpswitch').className == 'mui-switch mui-active'){
+					var dhcp_status_ipt = 1;
+				}else{
+					var dhcp_status_ipt = 0;
+				}
+				mui.ajax({
+					url : AP_ADDR+"/s/wifi/advdhcpconfig_itf",
+					dataType : "json",
+					data:{
+						dhcp_status:dhcp_status_ipt,
+						text_bootp_from_1:mui('#text_bootp_from')[0].value,
+						text_bootp_to_1:mui('#text_bootp_to')[0].value,
+						zuqi_days_1:mui('#bootday')[0].value,
+						zuqi_hours_1:mui('#boothour')[0].value
+					},
+					type : "get",
+					success : function(data){
+						check987(data);
+						if(data['st']=='ok'){
+							mui.toast('设置成功');
+						}else{ 
+							mui.toast(data['err']);
+						}
+					},
+					error : function() {
+						mui.toast("提交成功");
+					}
+				});
+			}
+		</script>
+</html>

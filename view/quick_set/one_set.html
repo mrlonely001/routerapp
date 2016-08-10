@@ -1,0 +1,365 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>一键设置</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			html,body{height: 100%;}
+			/*.mui-content{height: 100%;}*/
+			.mui-content .content_zyl{
+				width: 100%;
+			}
+			.mui-content .content_zyl .tab2_,.mui-content .content_zyl .tab3_{
+				display: none;
+			}
+			.mui-content  .content_zyl .cont_top .tip1_ p{
+				font-size: 16px;
+				color: #FFFFFF;
+				text-align: center;
+			}
+			.mui-content  .content_zyl .cont_top .tip2_ p{
+				font-size: 14px;
+				color: #083a65;
+				text-align: center;
+			}
+			.mui-content .content_zyl .cont_top .btns_{
+				
+			}
+			.mui-content .content_zyl .cont_top .btns_ .mui-control-li{
+				line-height: 38px;
+				display: table-cell;
+				overflow: hidden;
+				width: 1%;
+				-webkit-transition: background-color .1s linear;
+				transition: background-color .1s linear;
+				text-align: center;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+				border-left: none;
+				color: #FFFFFF;
+				font-size: 17px;
+				font-weight: bold;
+			}
+			
+			.mui-content  .content_zyl .cont_top .btns_ .mui-active{
+				color: #fff000;
+				border-bottom:none;
+			}
+			.mui-content .content_zyl .cont_top .btns_ .mui-active span{
+				padding-bottom: 5px;
+				border-bottom: 2px solid #FFF000;
+			}
+			
+			
+			.mui-content .content_zyl .cont_bottom .tab1_{
+				text-align: center;
+				padding-top: 30px;
+			}
+			.mui-content .content_zyl .cont_bottom .btn_{
+				padding: 50px 15px 15px; 
+			}
+			.mui-content .content_zyl .cont_bottom .btn_ button{
+				width: 100%;
+				height: 45px;
+				background:#1782DD;
+				border:none;
+				color: #FFFFFF;
+				font-size: 17px;
+			}
+			
+			.mui-content .content_zyl .cont_bottom .change_btns{
+				margin-top: 30px;
+				text-align: center;
+			}
+			.mui-content .content_zyl .cont_bottom .change_btns .do_btn{
+				display: inline-block;
+				width: 35px;
+				height: 35px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+			}
+			.mui-content .content_zyl .cont_bottom .change_btns .do_btn.next_{
+				background-position: -307px -62px;
+			}
+			
+			
+			
+			@media only screen and (min-width: 310px){
+				.mui-content .content_zyl{
+					height: 520px;
+				}
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 100px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 110px;
+				}
+				.mui-content .content_zyl{
+					height: 540px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .content_zyl .cont_bottom .btn_{
+					padding-top: 120px;
+				}
+				.mui-content .content_zyl{
+					height: 560px;
+				}
+			}
+						
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">一键设置</h1>
+		</header>
+		<div class="mui-content">
+			<div class="content_zyl">
+				<div class="cont_top">
+					<div class="flex_content flex_dir_col per_h100">
+						<div class="progress_ flex_1">
+							<div class="first_"></div>
+						</div>
+						<div class="tip1_ flex_1">
+							<p class="tab1_ tab_">经检测，建议您使用联网类型为动态IP</p>
+							<p class="tab2_ tab_">经检测，建议您使用联网类型为ADSL</p>
+							<p class="tab3_ tab_">经检测，建议您使用联网类型为静态IP</p>
+						</div>
+						<div class="btns_ flex_1">
+							<div class="mui-segmented-control mui-segmented-control-inverted tab_con">
+							    <a id="tb1" class="mui-control-li mui-active" href="javascript:void(0);"><span>动态IP</span></a>
+							    <a id="tb2" class="mui-control-li" href="javascript:void(0);"><span>ADSL</span></a>
+							    <a id="tb3" class="mui-control-li" href="javascript:void(0);"><span>静态IP</span></a>
+							</div>
+						</div>
+						<div class="tip2_ flex_1">
+							<p class="tab1_ tab_">动态IP一般适用于企业或公司内部网络</p>
+							<p class="tab1_ tab_">连上路由器后就可以直接上网啦</p>
+							<p class="tab2_ tab_">请输入网络服务商提供的ADSL上网账号及密码</p>
+							<p class="tab2_ tab_">如遗忘请咨询网络服务商</p>
+							<p class="tab3_ tab_">请输入网络服务商提供的IP地址、子网掩码等信息</p>
+							<p class="tab3_ tab_">如遗忘请咨询网络服务商</p>
+						</div>
+					</div>
+				</div>
+				<div class="cont_bottom">
+					<div class="tab1_ tab_">
+						<span id="wanstatus"></span>
+						<div class="btn_">
+							<button type="button" class="mui-btn" id="dynamic_ip">下 一 步</button>
+						</div>
+						<!--<div class="change_btns">
+							<div class="next_ do_btn dynamic_ip"></div>
+						</div>-->
+					</div>
+					<div class="tab2_ tab_">
+						<form class="mui-input-group" style="margin: 30px 0 0;">
+							<div class="mui-input-row">
+							    <label><span class="require">*</span>账号</label>
+							    <input type="text" id="account_" class="mui-input-clear" placeholder="请输入账号">
+							</div>
+							<div class="mui-input-row mui-password">
+							    <label><span class="require">*</span>密码</label>
+							    <input type="password" id="password_" class="mui-input-password" placeholder="请输入密码">
+							</div>
+						</form>
+						<div class="change_btns">
+							<div class="next_ do_btn adsl_"></div>
+						</div>
+					</div>
+					<div class="tab3_ tab_">
+						<form class="mui-input-group" style="margin: 30px 0 0;">
+						    <div class="mui-input-row">
+						        <label><span class="require">*</span> IP地址</label>
+						        <input type="text" id="ipAddr_" class="mui-input-clear req" placeholder="请输入IP地址">
+						    </div>
+						    <div class="mui-input-row">
+						        <label><span class="require">*</span> 子网掩码</label>
+						        <input type="text" id="subnet_" class="mui-input-clear req" placeholder="请输入子网掩码">
+						    </div>
+						    <div class="mui-input-row">
+						        <label><span class="require">*</span> 网关</label>
+						        <input type="text" id="gateway_" class="mui-input-clear req" placeholder="请输入网关">
+						    </div>
+						    <div class="mui-input-row">
+						        <label>&nbsp;&nbsp;首选DNS</label>
+						        <input type="text" class="mui-input-clear" placeholder="请输入首选DNS" id="fdns">
+						    </div>
+						    <div class="mui-input-row">
+						        <label>&nbsp;&nbsp;备选DNS</label>
+						        <input type="text" class="mui-input-clear" placeholder="请输入备选DNS" id="sdns">
+						    </div>
+						</form>
+						<div class="change_btns">
+							<div class="next_ do_btn static_ip"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/main.js"></script>
+		<!--<script src="../../js/vconsole.min.js"></script>-->
+		<script type="text/javascript">
+			WIFI_SSID = '';
+			AP_ADDR = '';
+			mui.init();
+			mui.plusReady(function(){
+				WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      			AP_ADDR = plus.storage.getItem('AP_ADDR');
+      			navagationwan();
+			});
+			
+			function navagationwan(){//一键设置
+	      		mui.ajax(AP_ADDR+'/s/wifi/navigationwan_itf',{
+					data:{},
+					dataType:'json',
+					type:'post',
+					timeout:10000,
+					headers:{'Content-Type':'application/json'}, 
+					success:function(data){
+						console.log(JSON.stringify(data))
+						check987(data);
+						var wantype = data.data.wantype;
+						if(wantype == 'STATIC'){
+							mui('#ipAddr_')[0].value = data.data.ipaddr;
+							mui('#subnet_')[0].value = data.data.netmask;
+							mui('#gateway_')[0].value = data.data.gateway;
+							mui('#fdns')[0].value =data.data.fdns;
+							mui('#sdns')[0].value =data.data.sdns;
+							mui.trigger(mui('#tb3')[0],'tap');
+						}else if(wantype == 'DHCP'){
+							mui.trigger(mui('#tb1')[0],'tap');
+							if(data.data.connstatus == true){
+								mui('#wanstatus')[0].innerHTML = '联网配置设置成功' ;
+							}
+						}else{
+							mui('#account_')[0].value = data.data.pppoename;
+							mui('#password_')[0].value = data.data.passwd;
+							mui.trigger(mui('#tb2')[0],'tap');
+							
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						mui.toast('连接超时');
+						console.log(type);
+					}
+				});
+      		}
+			
+			mui(".mui-content").on("tap","#dynamic_ip",function(){//动态ip下一步
+				mui.openWindow('set_wifi.html','set_wifi',{
+	  	    		show:{
+	  	    			duration:200
+	  	    		},
+	  	    		extras:{
+	  	    			wantype:"DHCP"
+	  	    		}
+	  	    	});
+			});
+			
+			mui(".mui-content").on("tap",".adsl_",function(){//adsl下一步
+				var value = mui("#account_")[0].value;//账号
+				var password = mui("#password_")[0].value;//密码
+				if(!value){
+					mui.toast("请输入账号");
+					return false;
+				}
+				if(!password){
+					mui.toast("请输入密码");
+					return false;
+				}
+				mui.openWindow('set_wifi.html','set_wifi',{
+	  	    		show:{
+	  	    			duration:200
+	  	    		},
+	  	    		extras:{
+	  	    			wantype:"PPPOE",
+	  	    			adslacct:mui('#account_')[0].value,
+						adslpass:mui('#password_')[0].value
+	  	    		}
+	  	    	});
+			});
+			
+			mui(".mui-content").on("tap",".static_ip",function(){//静态ip下一步
+				var flagReq = true;
+				var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/;
+				var msg = "";
+				mui(".req",this.parentNode.parentNode).each(function(){
+					if(this.value.length<=0){
+						flagReq = false;
+						return false;
+					}
+				});
+				if(!flagReq){
+					mui.toast("必填项不能为空");
+					return false;
+				}
+				mui("input",this.parentNode.parentNode).each(function(){
+					if(this.value.trim().length>0&&!reg.test(this.value)){//placeholder
+						var pder = this.placeholder.substring(3);
+						msg = pder+"格式不正确";
+						flagReq = false;
+						return false;
+					}
+				});
+				if(!flagReq){
+					mui.toast(msg);
+					return false;
+				}
+				
+				mui.openWindow('set_wifi.html','set_wifi',{
+	  	    		show:{
+	  	    			duration:200
+	  	    		},
+	  	    		extras:{
+	  	    			wantype:'STATIC',
+						ipaddr:mui('#ipAddr_')[0].value,
+						netmask:mui('#subnet_')[0].value,
+						gateway:mui('#gateway_')[0].value,
+						fdns:mui('#fdns')[0].value,
+						sdns:mui('#sdns')[0].value
+	  	    		}
+	  	    	});
+			});
+			
+			//tab切换
+			mui(".mui-content").on("tap",".mui-control-li",function(){
+				var that = this;
+				var id = that.getAttribute("id");
+				if(!id){
+					return false;
+				}else{
+					mui(".tab_").each(function(){
+						this.style.display = "none";
+					});
+					if(id=="tb1"){
+						mui(".tab1_").each(function(){
+							this.style.display = "block";
+						});
+					}else if(id=="tb2"){
+						mui(".tab2_").each(function(){
+							this.style.display = "block";
+						});
+					}else if(id=="tb3"){
+						mui(".tab3_").each(function(){
+							this.style.display = "block";
+						});
+					}
+				}
+				mui(".btns_ .mui-control-li").each(function(){
+					this.className = "mui-control-li";
+				});
+				that.className = "mui-control-li mui-active";
+			});
+			
+		</script>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style>
+			.mui-content .mui-table-view:last-child{
+				margin-top: 15px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span.icon_{
+				width: 24px;
+				height: 24px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .reset_password .icon_{
+				background-position: -18px -121px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .reset_router .icon_{
+				background-position: -77px -121px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .factory_default .icon_{
+				background-position: -142px -121px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">系统设置</h1>
+		</header>
+		<div class="mui-content">
+		    <ul class="mui-table-view">
+	            <li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right reset_password">
+	                    <span class="icon_"></span>
+                		<span>修改密码</span>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a href="javascript:void(0);" class="mui-navigate-right reset_router">
+	                    <span class="icon_"></span>
+                		<span>重启路由器</span>
+	                </a>
+	            </li>
+	        </ul>
+	        <ul class="mui-table-view">
+	                <li class="mui-table-view-cell">
+	                    <a href="javascript:void(0);" class="mui-navigate-right factory_default">
+		                    <span class="icon_"></span>
+		                    <span>恢复出厂设置</span>
+	                    </a>
+	                </li>
+	        </ul>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		mui(".mui-content").on("tap",".reset_password",function(){
+			mui.openWindow({
+				url:"./reset_password.html",
+				id:"reset_password",
+				show:{
+    				duration:150
+    			},
+    			waiting:{
+    				autoShow:false
+    			}
+			});
+		});
+		mui(".mui-content").on("tap",".reset_router",function(){
+			mui.openWindow({
+				url:"./reset_router.html",
+				id:"reset_router",
+				show:{
+    				duration:150
+    			},
+    			waiting:{
+    				autoShow:false
+    			}
+			});
+		});
+		mui(".mui-content").on("tap",".factory_default",function(){
+			mui.openWindow({
+				url:"./factory_default.html",
+				id:"factory_default",
+				show:{
+    				duration:150
+    			},
+    			waiting:{
+    				autoShow:false
+    			}
+			});
+		});
+	</script>
+</html>

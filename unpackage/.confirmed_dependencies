@@ -1,0 +1,408 @@
+{
+  "index.html": {
+    "resources": [
+      "images/loading1.png",
+      "images/logo1.png",
+      "css/main.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js",
+      "fonts/mui.ttf",
+      "js/zepto.min.js",
+      "js/vconsole.min.js"
+    ],
+    "refer": [
+      "view/no_device.html",
+      "view/login.html",
+      "view/sign_in/login.html",
+      "view/sign_in/no_device.html"
+    ]
+  },
+  "view/no_device.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/main.css",
+      "css/style.css"
+    ],
+    "refer": []
+  },
+  "view/login.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css"
+    ],
+    "refer": []
+  },
+  "view/menu.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "css/main.css",
+      "images/sprite1.png"
+    ],
+    "refer": [
+      "view/router_status/router_status.html",
+      "view/terminal_manage/terminal_manage.html",
+      "view/set_system/set_system.html",
+      "view/quick_set/one_set.html",
+      "view/set_network/set_network.html",
+      "view/about_us/about_us.html"
+    ]
+  },
+  "view/sign_in/pullrefresh_main.html": {
+    "resources": [
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "view/sign_in/pullrefresh_sub.html"
+    ],
+    "refer": [
+      "view/sign_in/pullrefresh_sub.html"
+    ]
+  },
+  "view/sign_in/pullrefresh_sub.html": {
+    "resources": [
+      "fonts/mui.ttf"
+    ]
+  },
+  "view/sign_in/login.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/vconsole.min.js",
+      "js/main.js"
+    ],
+    "refer": [
+      "view/menu.html",
+      "view/sign_in/no_device.html",
+      "view/set_system/reset_password.html"
+    ]
+  },
+  "view/sign_in/no_device.html": {
+    "resources": [
+      "fonts/mui.ttf",
+      "view/sign_in/no_device_sub.html",
+      "images/logo2.png",
+      "css/main.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js"
+    ],
+    "refer": [
+      "view/sign_in/no_device_sub.html",
+      "view/sign_in/login.html"
+    ]
+  },
+  "view/sign_in/no_device_sub.html": {
+    "resources": [
+      "images/sprite1.png",
+      "css/main.css",
+      "js/mui.min.js",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js"
+    ]
+  },
+  "view/router_status/router_status.html": {
+    "resources": [
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js"
+    ],
+    "refer": [
+      "view/router_status/sys_status.html",
+      "view/router_status/wireless_status.html",
+      "view/router_status/wan_status.html",
+      "view/router_status/lan_status.html"
+    ]
+  },
+  "view/router_status/wireless_status.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/router_status/wan_status.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/router_status/sys_status.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/router_status/lan_status.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/terminal_manage/terminal_manage.html": {
+    "refer": [
+      "view/terminal_manage/terminal_info.html",
+      "view/set_system/reset_password.html"
+    ],
+    "resources": [
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/vue.min.js",
+      "js/main.js"
+    ]
+  },
+  "view/terminal_manage/terminal_info.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/set_system/set_system.html": {
+    "refer": [
+      "view/set_system/reset_password.html",
+      "view/set_system/reset_router.html",
+      "view/set_system/factory_default.html"
+    ],
+    "resources": [
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/set_system/reset_router.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/vconsole.min.js",
+      "js/main.js"
+    ]
+  },
+  "view/set_system/reset_password.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/vconsole.min.js",
+      "js/main.js"
+    ]
+  },
+  "view/set_system/factory_default.html": {
+    "resources": [
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/quick_set/one_set.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "css/mui.min.css",
+      "css/style.css",
+      "fonts/mui.ttf",
+      "js/main.js",
+      "js/vconsole.min.js"
+    ],
+    "refer": [
+      "view/quick_set/set_wifi.html"
+    ]
+  },
+  "view/quick_set/set_wifi.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "images/sprite1.png",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js"
+    ],
+    "refer": [
+      "view/quick_set/edit_pass.html",
+      "view/quick_set/one_set.html",
+      "view/quick_set/over.html"
+    ]
+  },
+  "view/quick_set/edit_pass.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "images/sprite1.png",
+      "css/mui.min.css",
+      "css/style.css"
+    ],
+    "refer": [
+      "view/quick_set/over.html"
+    ]
+  },
+  "view/quick_set/over.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js",
+      "js/vconsole.min.js"
+    ]
+  },
+  "view/set_network/set_network.html": {
+    "resources": [
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ],
+    "refer": [
+      "view/set_network/set_wifi_only.html",
+      "view/set_network/set_ikuailian_only.html",
+      "view/set_network/inner_set.html",
+      "view/set_network/dhcp_set_only.html",
+      "view/set_network/free_auther_set.html",
+      "view/set_network/outer_set.html",
+      "view/set_network/static_ip_set.html"
+    ]
+  },
+  "view/set_network/set_wifi_only.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js"
+    ]
+  },
+  "view/set_network/set_ikuailian_only.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/set_network/inner_set.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js"
+    ]
+  },
+  "view/set_network/dhcp_set_only.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js"
+    ]
+  },
+  "view/set_network/free_auther_set.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/vue.min.js",
+      "js/main.js",
+      "js/vconsole.min.js"
+    ],
+    "refer": [
+      "view/set_network/add_device.html",
+      "view/set_network/free_auther_add.html"
+    ]
+  },
+  "view/set_network/add_device.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/set_network/outer_set.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/main.js"
+    ]
+  },
+  "view/set_network/static_ip_set.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css",
+      "js/vue.min.js",
+      "js/main.js"
+    ],
+    "refer": [
+      "view/set_network/add_device.html"
+    ]
+  },
+  "view/set_network/free_auther_add.html": {
+    "resources": [
+      "css/main.css",
+      "js/mui.min.js",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  },
+  "view/about_us/about_us.html": {
+    "resources": [
+      "js/mui.min.js",
+      "images/sprite1.png",
+      "fonts/mui.ttf",
+      "css/mui.min.css",
+      "css/style.css"
+    ]
+  }
+}

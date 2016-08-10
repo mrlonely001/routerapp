@@ -1,0 +1,146 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>没有找到设备</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<link href="../../css/main.css" rel="stylesheet" />
+		<script src="../../js/main.js"></script>
+		<style>
+		
+			.no_device .first_zyl{
+				background: #1782DD;
+				position: relative;
+			}
+			.no_device .first_zyl .logo_{
+				width: 166px;
+				height: 94px;
+				margin: 0 auto;
+			}
+			.no_device .first_zyl .link_{
+				position: absolute;
+				right: 10px;
+				bottom: 10px;
+			}
+			.no_device .first_zyl .link_ a{
+				color: #FFFFFF;
+				text-decoration: underline;
+			}
+			
+			/*.no_device .second_zyl .con_ p{
+				text-align: center;
+				font-size: 16px;
+				color: #868686;
+				
+			}
+			.no_device .second_zyl .con_ .pull_img{
+				width: 100px;
+				margin: 20px auto;
+			}
+			.no_device .second_zyl .con_ .pull_img .img_{
+				display: inline-block;
+				vertical-align: middle;
+				width: 24px;
+				height: 24px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 473px;
+				background-position: -252px -9px;
+			}
+			.no_device .second_zyl .con_ .pull_img .img_txt{
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 13px;
+				color: #868686;
+			}*/
+			
+			
+			
+			@media only screen and (min-width: 310px){
+				.no_device .first_zyl{
+					padding-top: 40px;
+					height: 250px;
+				}
+				.mui-content .mui-pull-top-pocket{
+  					top: 300px !important;
+				}
+				/*.no_device .second_zyl{
+					padding-top: 60px;
+				}*/
+			}
+			@media only screen and (min-width: 370px){
+				.no_device .first_zyl{
+					padding-top: 50px;
+					height: 260px;
+				}
+				.mui-content .mui-pull-top-pocket{
+  					top: 310px !important;
+				}
+				/*.no_device .second_zyl{
+					padding-top: 70px;
+				}*/
+			}
+			@media only screen and (min-width: 410px){
+				.no_device .first_zyl{
+					padding-top: 60px;
+					height: 270px;
+				}
+				.mui-content .mui-pull-top-pocket{
+  					top: 320px !important;
+				}
+				/*.no_device .second_zyl{
+					padding-top: 80px;
+				}*/
+			}
+		</style>
+	</head>
+
+	<body style="overflow: hidden;">
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">我的路由</h1>
+		</header>
+		<div class="mui-content no_device">
+		    <div class="first_zyl">
+		    	<div class="logo_"><img src="../../images/logo2.png"></div>
+		    	<div class="link_"><a href="javascript:openWifi_set();">连接WI-FI</a></div>
+		    </div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript">
+		mui.init({
+			gestureConfig:{
+				doubletap:true
+			},
+			subpages:[{
+				url:'no_device_sub.html',
+				id:'no_device_sub',
+				styles:{
+					top: '314px',
+					bottom: '0px',
+				}
+			}]
+		});
+		
+		function tologin(){
+  	    	mui.openWindow('login.html','login',{
+  	    		show:{
+  	    			duration:150
+  	    		},
+  	    		waiting:{
+  	    			autoShow:false
+  	    		}
+  	    	});
+      	}
+		
+		/*var contentWebview = null;
+		document.querySelector('header').addEventListener('doubletap',function () {
+			if(contentWebview==null){
+				contentWebview = plus.webview.currentWebview().children()[0];
+			}
+			contentWebview.evalJS("mui('#pullrefresh').pullRefresh().scrollTo(0,0,100)");
+		});*/
+		
+		</script>
+</html>

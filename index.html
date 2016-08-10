@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet" />
+    <link href="css/main.css" rel="stylesheet" />
+	<script src="js/main.js"></script>
+</head>
+<body id="welcom">
+	<section class="welcom_page">
+			<section>
+				<div class="logo"></div>
+			</section>
+			<footer>
+				<div class="loading_" style="display: block;" id="loading">
+					<h3>正在寻找快连无线路由设备</h3>
+					<div class="image"></div>
+				</div>
+				<div class="reload_" id="reload" ><a href="javascript:wifistatus();">重新获取</a></div>
+			</footer>
+		</section>
+</body>
+    <script type="text/javascript" charset="utf-8">
+    	AP_ADDR = '';
+    	WIFI_SSID = '';
+      	mui.init({
+      		beforeback:function(){
+      			return false;
+      		}
+      	});
+      	mui.plusReady(function(){
+      		var wv=plus.webview.currentWebview();
+			// 关闭侧滑返回功能
+			wv.setStyle({'popGesture':'none'});
+			plus.storage.setItem("AP_ADDR","http://192.168.188.1");
+			plus.storage.setItem("WIFI_SSID",'7620-managerAPP');
+			AP_ADDR = plus.storage.getItem('AP_ADDR');
+			WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+			wifistatus();
+      	});
+      	
+      	function tologin(){
+  	    	mui.openWindow('view/sign_in/login.html','login',{
+  	    		show:{
+  	    			duration:150
+  	    		},
+  	    		waiting:{
+  	    			autoShow:false
+  	    		}
+  	    	});
+      	}
+      	
+      	
+      	function tonodevice(){
+  	    	mui.openWindow('view/sign_in/no_device.html','no_device',{
+  	    		show:{
+  	    			duration:150
+  	    		},
+  	    		waiting:{
+  	    			autoShow:false
+  	    		}
+  	    	});
+      	}
+      	
+      	function wifistatus(){
+			if(plus.os.name == 'Android'){
+//				console.log(AP_ADDR+'____'+WIFI_SSID);
+				var Context = plus.android.importClass("android.content.Context");
+				var WifiManager = plus.android.importClass("android.net.wifi.WifiManager");
+				var List = plus.android.importClass("java.util.List");
+			    var ArrayList = plus.android.importClass("java.util.ArrayList");
+			    var ScanResult = plus.android.importClass("android.net.wifi.ScanResult");
+				var wifiManager = plus.android.runtimeMainActivity().getSystemService(Context.WIFI_SERVICE);
+				if (!wifiManager.isWifiEnabled())
+				{
+					changenotice();
+					plus.nativeUI.confirm( "检测到您没有打开wifi是否现在去打开？", function(e){
+                       (e.index==0)?openWifi_set():console.log( "No!" );
+                	}, "提示", ["是","否"] );
+				}else{//开了wifi
+					var wifilist = new ArrayList();
+			    	wifilist = wifiManager.getScanResults();
+					wifi_str = wifilist.toString();
+					if(wifi_str.indexOf(WIFI_SSID)>0){//搜得到要设置的ssid
+						info = wifiManager.getConnectionInfo();
+						ssid = plus.android.invoke(info,'getSSID'); //获取当前连接的ssid
+						if('"'+WIFI_SSID+'"' == ssid){//链接了要设置的路由器
+							tologin();
+						}else{//没有链接要设置的路由器
+							changenotice();
+							plus.nativeUI.confirm( "检测到您没有链接要设置的路由，去连接？", function(e){
+		                       (e.index==0)?openWifi_set():console.log( "No!" );
+		                	}, "提示", ["是","否"] );
+						}
+					}else{//搜不到路由
+						tonodevice();
+					}
+					
+				}
+			}else if(plus.os.name == 'iOS'){
+				console.log(plus.networkinfo.getCurrentType())
+				if(3 == plus.networkinfo.getCurrentType()){//当前连接的是wifi
+					mui.ajax(AP_ADDR+'/s/start/http200_itf',{
+						data:{
+							httpreq:1
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'get',//HTTP请求类型
+						timeout:3000,//超时时间设置为10秒；
+						headers:{'Content-Type':'application/json'}, 
+						success:function(data){
+								if(data.ret == 1){
+									console.log('congratilation');
+									tologin();
+								}
+						},
+						error:function(xhr,type,errorThrown){
+							changenotice();
+							plus.runtime.openURL("prefs:root=WIFI");//ios弹出wifi设置页面
+						}
+					});
+				}else{
+					plus.nativeUI.alert('请打开wifi，并连接要设置的wifi',function(){
+						changenotice();
+						plus.runtime.openURL("prefs:root=WIFI");
+					});
+				}
+			}
+	}
+      	
+    function changenotice(){
+    	document.getElementById('loading').style.display = 'none';
+		document.getElementById('reload').style.display = 'block';
+    }
+	
+    </script>
+</html>

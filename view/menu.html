@@ -1,0 +1,323 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>主页</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link href="../css/style.css" rel="stylesheet"/>
+		<link href="../css/main.css" rel="stylesheet" />
+		<style>
+			html,body{height: 100%;}
+			#topPopover {
+				position: fixed;
+				top: 16px;
+				right: 6px;
+			}
+			#topPopover .mui-popover-arrow {
+				left: auto;
+				right: 6px;
+			}
+			.mui-popover {
+				height: 100px;
+				width: 80px;
+			}
+			.mui-content{height: 100%;}
+			.mui-content .content_zyl{
+				width: 100%;
+				height: 100%;
+			}
+			.mui-content .content_zyl .cont_top{
+				height: 50%;
+				background: #1782DD;
+				padding-top: 20px;
+			}
+			@media only screen and (min-width: 310px){
+				.mui-content .content_zyl .cont_top{
+					padding-top: 40px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .content_zyl .cont_top{
+					padding-top: 50px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .content_zyl .cont_top{
+					padding-top: 60px;
+				}
+			}
+			.mui-content .content_zyl .cont_top .btn_block{
+				width: 160px;
+				height: 160px;
+				border: 1px solid;
+				margin:  0 auto;
+				border-radius: 95px;
+				box-shadow: 0 0 15px;
+				position: relative;
+				text-align: center;
+				line-height: 160px;
+				color: #FFFFFF;
+				font-size: 16px;
+				animation: lumosAnim 2s linear infinite;
+				-webkit-animation: lumosAnim 2s linear infinite;
+			}
+			@keyframes lumosAnim{
+				0%{box-shadow: 0 0 15px rgba(255,255,255,0);border-color: rgba(255,255,255,0.2);}
+				75%{box-shadow: 0 0 15px rgba(255,255,255,1);border-color: rgba(255,255,255,1);}
+				100%{box-shadow: 0 0 15px rgba(255,255,255,0);border-color: rgba(255,255,255,0.2);}
+			}
+			@-webkit-keyframes lumosAnim{
+				0%{-webkit-box-shadow: 0 0 15px rgba(255,255,255,0);border-color: rgba(255,255,255,0.2);}
+				75%{-webkit-box-shadow: 0 0 15px rgba(255,255,255,1);border-color: rgba(255,255,255,1);}
+				100%{-webkit-box-shadow: 0 0 15px rgba(255,255,255,0);border-color: rgba(255,255,255,0.2);}
+			}
+			.mui-content .content_zyl .cont_top .btn_block .dot{
+				width: 10px;
+				height: 10px;
+				border-radius: 5px;
+				background: #FFFFFF;
+				position: absolute;
+				top: 0;
+				left: 75px;
+				animation: rotateAnimi 5s linear infinite;
+				-webkit-animation: rotateAnimi 5s linear infinite;
+				transform-origin:4px 79px;
+				-webkit-transform-origin:4px 79px;
+			}
+			@keyframes rotateAnimi{
+				from{transform: rotate(0deg);}
+				to{transform: rotate(360deg);}
+			}
+			@-webkit-keyframes rotateAnimi{
+				from{-webkit-transform: rotate(0deg);}
+				to{-webkit-transform: rotate(360deg);}
+			}
+			
+			.mui-content .content_zyl .cont_bottom{
+				height: 50%;
+			}
+			.mui-content .content_zyl .cont_bottom>ul.mui-table-view{
+				background: #EFEFF4;
+			}
+			.mui-content .content_zyl .cont_bottom>ul.mui-table-view li.mui-active{
+				background: #E2E2E2;
+			}
+			.mui-content .content_zyl .cont_bottom .mui-icon{
+				width: 36px;
+				height: 35px;
+				background: url(../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+			}
+			.mui-content .content_zyl .cont_bottom .state_zyl .mui-icon{
+				background-position: -7px -4px;
+			}
+			.mui-content .content_zyl .cont_bottom .terminal_zyl .mui-icon{
+				background-position: -70px -4px;
+			}
+			.mui-content .content_zyl .cont_bottom .net_zyl .mui-icon{
+				background-position: -132px -4px;
+			}
+			.mui-content .content_zyl .cont_bottom .system_zyl .mui-icon{
+				background-position: -194px -4px;
+			}
+			
+			
+			
+			@media only screen and (min-width: 310px){
+				.mui-content .content_zyl .cont_bottom{
+					padding-top: 20px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .content_zyl .cont_bottom{
+					padding-top: 40px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .content_zyl .cont_bottom{
+					padding-top: 60px;
+				}
+			}
+			
+			
+			
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">快连无线</h1>
+		    <a style="color: #FFFFFF;" id="menu" class="mui-action-menu mui-icon mui-icon-bars mui-pull-right" href="#topPopover"></a>
+		</header>
+		<div class="mui-content">
+			<div class="content_zyl">
+				<div class="cont_top">
+					<div class="btn_block">
+						<span>一键设置</span>
+						<div class="dot"></div>
+					</div>
+				</div>
+				<div class="cont_bottom">
+					<ul class="mui-table-view mui-grid-view mui-grid-9">
+						<li class="mui-table-view-cell mui-media mui-col-xs-6 ">
+						    <a href="javascript:void(0);" class="state_zyl">
+						        <span class="mui-icon"></span>
+						        <div class="mui-media-body">路由状态</div>
+						    </a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-6">
+						    <a href="javascript:void(0);" class="terminal_zyl">
+						        <span class="mui-icon"></span>
+						        <div class="mui-media-body">终端管理</div>
+						    </a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-6">
+						    <a href="javascript:void(0);" class="net_zyl">
+						        <span class="mui-icon"></span>
+						        <div class="mui-media-body">网络设置</div>
+						    </a>
+						</li>
+						<li class="mui-table-view-cell mui-media mui-col-xs-6">
+						    <a href="javascript:void(0);" class="system_zyl">
+						        <span class="mui-icon"></span>
+						        <div class="mui-media-body">系统设置</div>
+						    </a>
+						</li>
+					</ul>
+					
+				</div>
+			</div>
+		</div>
+		<!--右上角弹出菜单-->
+		<div id="topPopover" class="mui-popover">
+			<div class="mui-popover-arrow"></div>
+			<div class="mui-scroll-wrapper">
+				<div class="mui-scroll">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a class="about_yct">&nbsp;关 于</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="quite_yct">&nbsp;退 出</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				var wv=plus.webview.currentWebview();
+				// 关闭侧滑返回功能
+				wv.setStyle({'popGesture':'none'});
+			});
+			
+			
+			//备份mui.back，mui.back已将窗口关闭逻辑封装的比较完善（预加载及父子窗口），因此最好复用mui.back
+			var old_back = mui.back;
+			mui.back = function(){
+			  var btn = ["取消","确定"];
+			  mui.confirm('确定要退出应用程序吗？','快连无线',btn,function(e){
+			    if(e.index==1){
+			    	//执行mui封装好的窗口关闭逻辑；
+			    	plus.runtime.quit();
+			    }
+			  });
+			};
+			
+			//一键设置
+			mui(".mui-content").on("tap",".btn_block",function(){
+				mui.openWindow({
+					url:"./quick_set/one_set.html",
+					id:"one_set",
+					show:{
+    					duration:300
+    				}
+				});
+			});
+			
+			//路由状态
+			mui(".mui-table-view").on("tap",".state_zyl",function(){
+				mui.openWindow({
+					url:"./router_status/router_status.html",
+					id:"router_status",
+					show:{
+    					duration:300
+    				}
+				});
+			});
+			//终端管理
+			mui(".mui-table-view").on("tap",".terminal_zyl",function(){
+				mui.openWindow({
+					url:"./terminal_manage/terminal_manage.html",
+					id:"terminal_manage",
+					show:{
+    					duration:300
+    				}
+				});
+			});
+			//网络设置
+			mui(".mui-table-view").on("tap",".net_zyl",function(){
+				mui.openWindow({
+					url:"./set_network/set_network.html",
+					id:"set_network",
+					show:{
+    					duration:300
+    				}
+				});
+			});
+			//系统设置
+			mui(".mui-table-view").on("tap",".system_zyl",function(){
+				mui.openWindow({
+					url:"./set_system/set_system.html",
+					id:"set_system",
+					show:{
+    					duration:300
+    				}
+				});
+			});
+			
+			mui(".mui-table-view-cell").on("tap",".about_yct",function(){
+				mui.openWindow({
+					url:"./about_us/about_us.html",
+					id:"about_us",
+					show:{
+    					duration:200
+    				}
+				});
+			});
+			
+			mui(".mui-table-view-cell").on("tap",".quite_yct",function(){
+				mui.trigger(mui('.mui-backdrop')[0],'tap');
+				if(plus.os.name == 'Android'){
+					plus.nativeUI.confirm( "是否确定退出路由管理？", function(e){
+                       (e.index==0)?plus.runtime.quit():console.log( "No" );
+                	}, "提示", ["是","否"] );
+				}else if(plus.os.name == 'iOS'){
+					plus.nativeUI.confirm( "是否确定退出路由管理？", function(e){
+                       (e.index==0)?tologin():console.log( "No" );
+                	}, "提示", ["是","否"] );
+				}
+			});
+			
+			mui(".mui-table-view-cell").on("tap",".about_yct",function(){
+				mui.trigger(mui('.mui-backdrop')[0],'tap');
+				
+			});
+			
+			function tologin(){
+	  	    	mui.openWindow('view/sign_in/login.html','login',{
+	  	    		show:{
+	  	    			duration:150
+	  	    		},
+	  	    		waiting:{
+	  	    			autoShow:false
+	  	    		}
+	  	    	});
+	      	}
+		</script>
+</html>

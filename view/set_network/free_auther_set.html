@@ -1,0 +1,132 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>免认证设置</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			.mui-content .mui-block{
+				padding: 5px 15px;
+				color: #868686;
+				font-size: 14px;
+			}	
+			.mui-content .mui-table-view .mui-table-view-cell span{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span.icon_{
+				width: 24px;
+				height: 24px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+				background-position: -309px -10px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .terminal_info{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .terminal_info h4{
+				font-size: 16px;
+			}
+			.mui-content .mui-table-view-cell .device_list .delete_btn{
+				display: inline-block;
+				vertical-align: middle;
+				width: 24px;
+				height: 24px;
+				color:red;
+			}		
+			[v-cloak]{display: none;}
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">免认证设置</h1>
+		    <a style="color: #FFFFFF;" class="mui-action-menu mui-icon mui-icon-plusempty mui-pull-right add_device" href="#topPopover"></a>
+		</header>
+		<div class="mui-content">
+			<div class="mui-block"><span>设备信息( </span><span v-cloak>{{num}}</span><span> )</span></div>
+			<ul class="mui-table-view">
+	            <li class="mui-table-view-cell" v-for="item in items" v-cloak>
+	                <a class="device_list">
+	                    <span class="icon_"></span>
+                		<div class="terminal_info">
+                			<h4 class="name mac">{{item}}</h4>
+                		</div>
+                		<span class="delete_btn f_r mui-icon mui-icon-trash" ></span>
+	                </a>
+	            </li>
+		    </ul>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/vue.min.js"></script>
+		<script src="../../js/main.js" ></script>
+		<!--<script src="../../js/vconsole.min.js" ></script>-->
+		<script type="text/javascript">
+			AP_ADDR = '';
+			mui.init();
+			mui.plusReady(function(){
+				WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      			AP_ADDR = plus.storage.getItem('AP_ADDR');
+      			getfreeauthlist();
+			});
+			
+			function getfreeauthlist(){
+				mui.get(AP_ADDR+'/s/wifi/auth_itf',function(data){
+					check987(data);
+					var freeauthlist = {};
+					for(var i=0;i<data[0].data.freeAuth.length;i++)
+					{
+					    freeauthlist[i]=data[0].data.freeAuth[i];
+					}
+					app = new Vue({
+							  el: '.mui-content',
+							  data: {
+							    items: data[0].data.freeAuth,
+							    num:data[0].data.freeAuth.length
+							  }
+						});
+				},'json');
+			}
+			
+			
+			mui("header").on("tap",".add_device",function(){
+				mui.openWindow({
+				url:"./free_auther_add.html",
+				id:"free_auther_add",
+				show:{
+    				duration:150
+    			},
+    			waiting:{
+    				autoShow:false
+    			}
+			});
+			});
+			
+			mui(".mui-content").on("tap",".mui-icon-trash",function(){//删除免认证设置
+				var mac_freeauth_del = mui('.mac',this.parentNode)[0].innerHTML;
+				mui.ajax({
+					url : AP_ADDR+"/s/wifi/delusrauth_itf?usrMac="+mac_freeauth_del,
+					dataType : "json",
+					type : "get",
+					success : function(data){
+						check987(data);
+						if(data.err =='ok')	{
+							mui.toast("删除成功");
+							mui.back();
+						}else{ 
+							mui.toast("删除失败");
+						}
+			       	},
+					error : function() {
+						mui.toast("连接超时");
+					}
+				});
+			});
+		</script>
+</html>

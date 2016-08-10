@@ -1,0 +1,140 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>路由状态</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<style>
+			
+			.mui-content .mui-table-view:last-child{
+				margin-top: 15px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span{
+				display: inline-block;
+				vertical-align: middle;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell span.icon_{
+				width: 24px;
+				height: 24px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .sys_status .icon_{
+				background-position: -200px -70px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .wireless_status .icon_{
+				background-position: -138px -72px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .wan_status .icon_{
+				background-position: -74px -67px;
+			}
+			.mui-content .mui-table-view .mui-table-view-cell .lan_status .icon_{
+				background-position: -15px -68px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">路由状态</h1>
+		</header>
+		<div class="mui-content">
+		    <ul class="mui-table-view">
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right sys_status" >
+	                	<span class="icon_"></span>
+	                	<span>系统状态</span>
+	                </a>
+	            </li>
+	            <li class="mui-table-view-cell">
+	                <a class="mui-navigate-right wireless_status">
+	                    <span class="icon_"></span>
+						<span>无线状态</span>
+	                </a>
+	            </li>
+	        </ul>
+	        <ul class="mui-table-view">
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right wan_status" >
+                    	<span class="icon_"></span>
+                        <span>WAN状态</span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right lan_status">
+                    	<span class="icon_"></span>
+                        <span>LAN状态</span>
+                    </a>
+                </li>
+            </ul>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/main.js"></script>
+	<script type="text/javascript">
+		AP_ADDR = '';
+    	WIFI_SSID = '';
+		mui.init();
+		mui.plusReady(function(){
+			//跳转到系统设置
+			mui(".mui-table-view").on("tap",".sys_status",function(){
+				mui.openWindow({
+					url:"sys_status.html",
+					id:"sys_status"
+				});
+			});
+			
+			//跳转到无线状态
+			mui(".mui-table-view").on("tap",".wireless_status",function(){
+				mui.openWindow({
+					url:"wireless_status.html",
+					id:"wireless_status"
+				});
+			});
+			
+			//跳转到WAN状态
+			mui(".mui-table-view").on("tap",".wan_status",function(){
+				mui.openWindow({
+					url:"wan_status.html",
+					id:"wan_status"
+				});
+			});
+			
+			//跳转到LAN状态
+			mui(".mui-table-view").on("tap",".lan_status",function(){
+				mui.openWindow({
+					url:"lan_status.html",
+					id:"lan_status"
+				});
+			});
+			WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      		AP_ADDR = plus.storage.getItem('AP_ADDR');
+			sysstatusasyn_itf();
+		});
+		
+		function sysstatusasyn_itf(){
+			mui.ajax(AP_ADDR+'/s/wifi/sysstatusasyn_itf',{
+				data:{},
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json'}, 
+				success:function(data){//本地存储路由所有状态数据
+						check987(data);
+						plus.storage.setItem("sysstatus",JSON.stringify(data));
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					plus.nativeUI.alert('连接超时');
+					console.log(type);
+				}
+			});
+			
+		}
+		
+		
+	</script>
+</html>

@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>没有找到设备</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			.no_device .second_zyl .con_ p{
+				text-align: center;
+				font-size: 16px;
+				color: #868686;
+			}
+			.no_device .second_zyl .con_ .pull_img{
+				width: 100px;
+				margin: 20px auto;
+			}
+			.no_device .second_zyl .con_ .pull_img .img_{
+				display: inline-block;
+				vertical-align: middle;
+				width: 24px;
+				height: 24px;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+				background-position: -252px -9px;
+			}
+			.no_device .second_zyl .con_ .pull_img .img_txt{
+				display: inline-block;
+				vertical-align: middle;
+				font-size: 13px;
+				color: #868686;
+			}
+			@media only screen and (min-width: 310px){
+				.no_device .second_zyl{
+					padding-top: 60px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.no_device .second_zyl{
+					padding-top: 70px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.no_device .second_zyl{
+					padding-top: 80px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<div id="pullrefresh"  class="mui-content no_device mui-scroll-wrapper">
+		    <div  class="second_zyl ">
+		    	<div class="con_" style="">
+		    		<p id="notice_1">您好！您当前没有可管理的路由器</p>
+		    		<p id="notice_2">请链接您的路由器</p>
+		    		<div class="pull_img">
+		    			<div class="img_"></div>
+		    			<div class="img_txt">下拉刷新</div>
+		    		</div>
+		    	</div>
+		    </div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/main.js" ></script>
+		<script type="text/javascript">
+			WIFI_SSID = '';
+			AP_ADDR = '';
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					down: {
+						callback: wifistatus
+					}
+				}
+			});
+	      	mui.plusReady(function(){
+	      		WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+	      		AP_ADDR = plus.storage.getItem('AP_ADDR');
+	      	});
+			function wifistatus(){
+				if(plus.os.name == 'Android'){
+					var Context = plus.android.importClass("android.content.Context");
+					var WifiManager = plus.android.importClass("android.net.wifi.WifiManager");
+					var List = plus.android.importClass("java.util.List");
+				    var ArrayList = plus.android.importClass("java.util.ArrayList");
+				    var ScanResult = plus.android.importClass("android.net.wifi.ScanResult");
+					var wifiManager = plus.android.runtimeMainActivity().getSystemService(Context.WIFI_SERVICE);
+					if (!wifiManager.isWifiEnabled())
+					{
+						mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						plus.nativeUI.confirm( "检测到您没有打开wifi是否现在去打开？", function(e){
+	                       (e.index==0)?openWifi_set():console.log( "No!" );
+	                	}, "提示", ["是","否"] );
+	                	
+					}else{
+						var wifilist = new ArrayList();
+				    	wifilist = wifiManager.getScanResults();
+						wifi_str = wifilist.toString();
+						if(wifi_str.indexOf(WIFI_SSID)>0){//搜得到要设置的ssid
+							console.log('检测到要配置的wifi');
+							document.getElementById('notice_1').innerHTML = "已经检测到您的路由器！";
+							document.getElementById('notice_2').innerHTML = "请点击右上方连接WI-FI！";
+							info = wifiManager.getConnectionInfo();
+							ssid = plus.android.invoke(info,'getSSID'); //获取当前ssid
+							if('"'+WIFI_SSID+'"' == ssid){ //链接了要设置的路由器
+		//						plus.nativeUI.alert('您已连接可以设置');
+								wo = plus.webview.getTopWebview();
+								wo.evalJS('tologin()');
+							}else{//没有链接要设置的路由器
+								document.getElementById('loading').style.display = 'none';
+								document.getElementById('reload').style.display = 'block';
+								plus.nativeUI.confirm( "检测到您没有链接要设置的路由，去连接？", function(e){
+			                       (e.index==0)?openWifi_set():console.log( "No!" );
+			                	}, "提示", ["是","否"] );
+							}
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						}else{//搜不到要设置的ssid
+							mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+						}
+						
+					}
+				}else if(plus.os.name == 'iOS'){
+					if(3 == plus.networkinfo.getCurrentType()){//当前连接的是wifi
+						plus.runtime.openURL("prefs:root=WIFI");  //ios弹出wifi设置页面 
+					}else{
+						plus.nativeUI.alert('请打开wifi，并连接要设置的wifi');
+					}
+				}
+			}
+		</script>
+</html>

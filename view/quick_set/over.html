@@ -1,0 +1,183 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>完成</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			html,body{height: 100%;}
+			/*.mui-content{height: 100%;}*/
+			.mui-content .content_zyl{
+				width: 100%;
+			}
+			.mui-content .content_zyl .tab2_,.mui-content .content_zyl .tab3_{
+				display: none;
+			}
+			.mui-content  .content_zyl .cont_top .tip1_ .ok_img{
+				width: 73px;
+				height: 73px;
+				margin: 0 auto;
+				background: url(../../images/sprite1.png) no-repeat;
+				background-size: 388px 758px;
+				background-position: -306px -223px;
+			}
+			.mui-content  .content_zyl .cont_top .tip2_ p{
+				font-size: 14px;
+				color: #083a65;
+				text-align: center;
+			}
+			
+			
+			.mui-content .content_zyl .cont_bottom .ok_btn{
+				padding: 8px 15px;
+			}
+			.mui-content .content_zyl .cont_bottom .ok_btn button{
+				padding: 8px 0;
+			}
+			
+			
+			@media only screen and (min-width: 310px){
+				.mui-content .content_zyl{
+					height: 520px;
+				}
+				.mui-content .content_zyl .cont_bottom .ok_btn{
+					padding-top: 100px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .content_zyl .cont_bottom .ok_btn{
+					padding-top: 110px;
+				}
+				.mui-content .content_zyl{
+					height: 540px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .content_zyl .cont_bottom .ok_btn{
+					padding-top: 120px;
+				}
+				.mui-content .content_zyl{
+					height: 560px;
+				}
+			}
+						
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">一键设置</h1>
+		</header>
+		<div class="mui-content">
+			<div class="content_zyl">
+				<div class="cont_top">
+					<div class="flex_content flex_dir_col per_h100">
+						<div class="progress_ flex_1">
+							<div class="fourth_"></div>
+						</div>
+						<div class="tip1_ flex_1">
+							<div class="ok_img"></div>
+						</div>
+						<div class="tip2_ flex_1">
+							<p>配置完成，重新连接WI-FI后即可访问互联网</p>
+							<p>WI-FI重启后，新的WI-FI SSId为：<span id="ssid_reback"></span></p>
+						</div>
+					</div>
+				</div>
+				<div class="cont_bottom">
+					<div class="ok_btn">
+						<button type="button" class="mui-btn mui-btn-blue mui-btn-block">完&nbsp;&nbsp;&nbsp;成</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/main.js" ></script>
+		<script src="../../js/vconsole.min.js"></script>
+		<script type="text/javascript">
+			AP_ADDR = '';
+	    	WIFI_SSID = '';
+	    	curweb = '';
+	    	onset_data = {};   //一键设置参数
+			mui.init();
+			mui.plusReady(function(){
+				WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      			AP_ADDR = plus.storage.getItem('AP_ADDR');
+				curweb = plus.webview.currentWebview();
+				//回显wifi的ssid
+				mui('#ssid_reback')[0].innerHTML = curweb.SSID;
+				//wifi参数
+				onset_data['wifiname'] = curweb.SSID;
+		    	onset_data['hwifipasswd']=curweb.wifipass;
+		    	onset_data['swifipasswd']=curweb.wifipass;
+		    	onset_data['isopenwifi']=curweb.openornot;
+		    	onset_data['showpasswd']=true;
+				onset_data['wantype'] = curweb.wifiweb.wantype;
+				//wan 参数
+				if(onset_data['wantype'] == 'STATIC'){//静态ip
+					wan_data = {
+						ipaddr:curweb.wifiweb.ipaddr,
+						netmask:curweb.wifiweb.netmask,
+						gateway:curweb.wifiweb.gateway,
+						fdns:curweb.wifiweb.fdns,
+						sdns:curweb.wifiweb.sdns
+					};
+					onset_data['wan_data'] = wan_data;
+				}else if(onset_data['wantype'] == 'DHCP'){//动态ip
+					onset_data['wan_data'] = '';
+				}else{//adsl
+					wan_data = {
+						username:curweb.wifiweb.adslacct,
+						passwd:curweb.wifiweb.adslpass
+					};
+					onset_data['wan_data'] = wan_data;
+				}
+//				console.log(JSON.stringify(onset_data));
+			});
+			
+			//完成
+			mui(".cont_bottom").on("tap","button",function(){
+				plus.nativeUI.confirm( "提交保存后，路由器会自动重启以保证设置生效，您的手机将断开wifi，请重新连接wifi后再打开APP，您是否保存？", function(e){
+                       (e.index==0)?oneset(onset_data):console.log( "No" );
+                	}, "提示", ["是","否"] );
+			});
+			
+			function oneset(setdata){
+//				console.log(JSON.stringify(setdata)); return false;
+				mui.ajax({
+			        url:AP_ADDR+"/s/wifi/oneset_itf",  
+					type : "get",
+				    data:{
+				    	wantype:setdata.wantype,
+				    	wan_data:setdata.wan_data,
+				    	wifiname:setdata.wifiname,
+				    	hwifipasswd:setdata.hwifipasswd,
+				    	swifipasswd:setdata.swifipasswd,
+				    	isopenwifi:setdata.isopenwifi,
+				    	showpasswd:setdata.showpasswd,
+				    	wifistatus:'on',
+				    },
+				    dataType:"json",
+				    timeout:3000,
+				    success : function(data){
+				    	check987(data);
+						if(data.err == 'ok'){
+							mui.toast('设置成功');
+						}else{ 
+							mui.toast('设置失败');
+						}
+					},
+					error : function() {
+						mui.toast("提交成功");
+					}
+				});
+			}
+			
+			
+			
+		</script>
+</html>

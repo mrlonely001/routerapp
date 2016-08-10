@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>找到设备登录页面</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<style>
+			.mui-input-group .mui-input-row:after{right: 15px;}
+			.mui-content .tip{font-size: 12px; color: #6c6c6c;padding-left: 15px;margin-top: 15px;}
+			.mui-content button{margin: 0 auto;font-size: 18px;font-weight:600;padding: 8px 0;}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1 class="mui-title">快连无线</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group" style="margin: 30px 0 0;" id="login_form">
+			    <div class="mui-input-row">
+			        <input type="text" class="mui-input-clear" name="ruserName" id="ruserName" placeholder="请输入路由器管理账号">
+			    </div>
+			   	<div class="mui-input-row mui-password">
+					<input type="password" class="mui-input-password" name="rpasswd" id="rpasswd" placeholder="请输入密码">
+				</div>
+			</form>
+			<div class="tip"><p>如第一次登录，请输入初始账号及密码</p></div>
+			<div class="mui-block" style="padding: 15px;margin-top: 50px;">
+				<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="login_btn">登&nbsp;&nbsp;&nbsp;录</button>
+			</div>
+		</div>
+		
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/main.js" ></script>
+	<!--<script src="../../js/vconsole.min.js"></script>-->
+	<script type="text/javascript">
+		WIFI_SSID = '';
+		AP_ADDR = '';
+		mui.init();
+      	mui.plusReady(function(){
+      		var wv=plus.webview.currentWebview();
+			// 关闭侧滑返回功能
+			wv.setStyle({'popGesture':'none'});
+      		WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      		AP_ADDR = plus.storage.getItem('AP_ADDR');
+      	});
+      	//备份mui.back，mui.back已将窗口关闭逻辑封装的比较完善（预加载及父子窗口），因此最好复用mui.back
+		var old_back = mui.back;
+		mui.back = function(){
+		  var btn = ["取消","确定"];
+		  mui.confirm('确定要退出应用程序吗？','快连无线',btn,function(e){
+		    if(e.index==1){
+		    	//执行mui封装好的窗口关闭逻辑；
+		    	plus.runtime.quit();
+		    }
+		  });
+		};
+		
+		mui(".mui-block").on("tap","#login_btn",function(e){
+	        if(!yanzheng()){return false;}
+	        e.preventDefault();
+	        mui.ajax(AP_ADDR+'/s/start/index_itf',{
+				data:{
+					ruserName:document.getElementById('ruserName').value,
+					rpasswd:document.getElementById('rpasswd').value
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json'}, 
+				success:function(data){
+						if(data.st != 0){
+							mui.toast("登陆失败，请确认账号和密码是否正确。");
+						}else{
+							if(data.flag == 1) {
+								mui.toast("为保证安全性，请修改原始登陆密码。");
+								mui.openWindow('../set_system/reset_password.html','reset_password',{
+					  	    		show:{
+					  	    			duration:200
+					  	    		}
+					  	    	});
+							}else{
+								tomenu();
+							}
+						}
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					mui.toast('连接超时');
+					console.log(type);
+				}
+			});
+    	});
+
+    	  	
+    	function yanzheng()
+    	{
+    		if(!(document.getElementById('ruserName').value && document.getElementById('rpasswd').value)){
+    			mui.toast('请输入完整的用户名密码');
+    			return false;
+    		}else{
+    			return true;
+    		}
+    	}
+    	
+    	function tomenu(){
+  	    	mui.openWindow('../menu.html','menu',{
+  	    		show:{
+  	    			duration:200
+  	    		}
+  	    	});
+      	}
+    	
+  
+	</script>
+</html>

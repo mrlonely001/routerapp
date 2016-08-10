@@ -1,0 +1,148 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>免认证添加设备</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet"/>
+		<link href="../../css/main.css" rel="stylesheet" />
+		<style>
+			.mui-content .mui-table-view .nostyle_list{
+				position: relative;
+				overflow: hidden;
+				padding: 11px 15px;
+			}
+			.mui-content .mui-table-view .nostyle_list:after{
+				position: absolute;
+				right: 0;
+				bottom: 0;
+				left: 15px;
+				height: 1px;
+				content: '';
+				-webkit-transform: scaleY(.5);
+				transform: scaleY(.5);
+				background-color: #c8c7cc;
+			}
+			
+			.mui-content .mui-table-view .mui-switch.mui-active{
+				border: 2px solid #1782DD;
+				background-color: #1782DD;
+			}
+			.mui-content .mui-table-view .nostyle_list input{
+				width: 32px;
+				height: 24px;
+				border: 1px solid #E2E2E2;
+				padding: 2px;
+				text-align: center;
+				font-size: 14px;
+			}
+			
+			.mui-block button{
+				padding: 8px 0;
+			}
+			
+			@media only screen and (min-width: 310px){
+				.mui-block{
+					margin-top: 50px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-block{
+					margin-top: 60px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-block{
+					margin-top: 70px;
+				}
+			}
+						
+		</style>
+	</head>
+	
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">添加设备</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group" style="margin-top: 15px;">
+			    <ul class="mui-table-view">
+			            <li class="nostyle_list">
+			                <span class="txt">MAC地址</span>
+			                <div class="f_r">
+			                	<input type="text" maxlength="2" id="mac1" class="mac_txt">-<input type="text" maxlength="2" id="mac2" class="mac_txt">-<input type="text" maxlength="2" id="mac3" class="mac_txt">-<input type="text" maxlength="2" id="mac4" class="mac_txt">-<input type="text" maxlength="2" id="mac5" class="mac_txt">-<input type="text" maxlength="2" id="mac6" class="mac_txt">
+			                </div>
+			            </li>
+			        </ul>
+			</form>
+			<div class="mui-block" style="padding: 15px;">
+				<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="save">保&nbsp;&nbsp;&nbsp;存</button>
+			</div>
+		</div>
+	</body>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/main.js"></script>
+		<script type="text/javascript">
+			AP_ADDR = '';
+			mui.init();
+			mui.plusReady(function(){
+      			AP_ADDR = plus.storage.getItem('AP_ADDR');
+			});
+			
+			mui(".mui-block").on("tap","#save",function(){
+				var flagVali = true;
+				mui(".mac_txt").each(function(){
+					if(!/^[0-9a-fA-F]{2}$/.test(this.value)){
+						flagVali = false;
+						return false;
+					}
+				});
+				if(!flagVali){
+					mui.toast("MAC地址不正确");
+					return false;
+				}
+				
+				mui.ajax({
+					url : AP_ADDR+"/s/wifi/usrauth_itf",
+					dataType : "json",
+					data:{
+						mac1:mui('#mac1')[0].value,
+						mac2:mui('#mac2')[0].value,
+						mac3:mui('#mac3')[0].value,
+						mac4:mui('#mac4')[0].value,
+						mac5:mui('#mac5')[0].value,
+						mac6:mui('#mac6')[0].value
+					},
+					type : "get",
+					success : function(data){
+						check987(data);
+						if(data.err =='ok')	{
+							mui.toast("免认证设置成功");
+							openWin("set_network");
+						}else{ 
+							mui.toast("免认证设置失败");
+						}
+					},
+					error : function() {
+						mui.toast("免认证设置提交失败");
+					}
+				});
+			});
+			
+			function openWin(name){
+				var name_ = name?name:"";
+				mui.openWindow({
+					url:"./"+name_+".html",
+					id:name_,
+					show:{
+	    				duration:150
+	    			},
+	    			waiting:{
+	    				autoShow:false
+	    			}
+				});
+			}
+		</script>
+</html>

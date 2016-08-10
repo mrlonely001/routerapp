@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>恢复出厂设置</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/style.css" />
+		<style>
+			html,body{height: 100%;}
+			.mui-content{height: 100%;width: 100%;}
+			
+			.mui-content .btn_{
+				padding: 15px;
+			}
+			.mui-content .con_ p{
+				font-size: 17px;
+				text-align: center;
+			}
+			.mui-content .con_ p:first-child{
+				margin-top: 30px;
+			}
+			
+			@media only screen and (min-width: 310px){
+				.mui-content .con_ p:first-child{
+					margin-top: 30px;
+				}
+			}
+			@media only screen and (min-width: 370px){
+				.mui-content .con_ p:first-child{
+					margin-top: 45px;
+				}
+			}
+			@media only screen and (min-width: 410px){
+				.mui-content .con_ p:first-child{
+					margin-top: 60px;
+				}
+			}
+			.mui-content .con_ .info_list{
+				background: none;
+				margin-top: 20px;
+			}
+			.mui-content .con_ .info_list:before,.mui-content .con_ .info_list:after{
+				background:none;
+			}
+			.mui-content .con_ .info_list li:after{
+				background: none;
+			}
+			.mui-content .con_ .info_list li span:last-child{
+				color: #7a7a7a;
+			}
+			
+			.mui-content button{margin: 0 auto;font-size: 18px;font-weight:600;padding: 8px 0;}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">恢复出厂设置</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="flex_content flex_dir_col">
+		    	<div class="flex_4 con_">
+		    		<p>恢复出厂设置将使路由器的</p>
+		    		<p>所有设置恢复到出厂时默认状态</p>
+		    		<ul class="mui-table-view info_list">
+		    		        <li class="mui-table-view-cell">
+		    		        	<span>默认管理地址：</span>
+		    		        	<span class="f_r">192.168.188.1</span>
+		    		        </li>
+		    		        <li class="mui-table-view-cell">
+		    		        	<span>默认登录账号：</span>
+		    		        	<span class="f_r">admin</span>
+		    		        </li>
+		    		        <li class="mui-table-view-cell">
+		    		        	<span>默认登录密码：</span>
+		    		        	<span class="f_r">admin</span>
+		    		        </li>
+		    		    </ul>
+		    	</div>
+		    	<div class="flex_1 con_ btn_">
+		    		<button type="button" class="mui-btn mui-btn-blue mui-btn-block" id="set_factory">恢复出厂设置</button>
+		    	</div>
+		    </div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/main.js"></script>
+	<script type="text/javascript">
+		WIFI_SSID = '';
+		AP_ADDR = '';
+		mui.init();
+		mui.plusReady(function(){
+      		WIFI_SSID = plus.storage.getItem('WIFI_SSID');
+      		AP_ADDR = plus.storage.getItem('AP_ADDR');
+      		//重启按钮事件绑定
+      		mui(".flex_1").on("tap","#set_factory",function(e){
+      		plus.nativeUI.confirm( "是否确定恢复出厂设置？", function(e){
+                       (e.index==0)?setfactory():console.log( "No!" );
+                	}, "提示", ["是","否"] );
+      		
+      		});
+      	});
+      	
+      	function setfactory(){
+      		console.log('nonono');return false;
+      		mui.ajax(AP_ADDR+'/s/wifi/factoryconfig_itf',{
+				data:{},
+				dataType:'json',//服务器返回json格式数据
+				type:'get',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				headers:{'Content-Type':'application/json'}, 
+				success:function(data){
+					check987(data);
+					if(data.ret == 1){
+						mui.toast('恢复出厂设置成功');
+					}else{
+						mui.toast('恢复失败');
+					}
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					mui.toast('提交成功');
+					console.log(type);
+				}
+			});
+      	}
+	</script>
+</html>

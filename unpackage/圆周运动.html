@@ -1,0 +1,49 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<style>
+			.dot{
+					width: 8px;
+					height: 8px;
+					border-radius: 4px;
+					background: #FFFFFF;
+					position: absolute;
+					top: 0;
+					left: 46px;
+					/*transform: translate(46px,0);
+					-webkit-transform: translate(46px,0);*/
+					/*-webkit-transform:rotate(45deg);*/
+					animation: rotateAnimi 2s linear infinite;
+					-webkit-animation: rotateAnimi 2s linear infinite;
+					transform-origin:0px 40px;
+					-webkit-transform-origin:0px 40px;
+				}
+			@keyframes rotateAnimi{
+				from{transform: rotate(0deg);}
+				to{transform: rotate(360deg);}
+			}
+			@-webkit-keyframes rotateAnimi{
+				from{-webkit-transform: rotate(0deg);}
+				to{-webkit-transform: rotate(360deg);}
+			}
+		</style>
+	</head>
+
+	<body>
+		<div style="width: 100%;height: 300px;padding: 20px;box-sizing: border-box;background: #1782DD;">
+			<div style="position:relative;width: 100px;height: 100px;border-radius: 50px;border: 1px solid #FFFFFF;box-shadow: -0px -0px 6px #EEEEEE,0px -0px 6px #EEEEEE,-0px 0px 6px #EEEEEE,0px 0px 6px #EEEEEE;">
+				<div class="dot" style=""></div>
+				
+			</div>
+		</div>
+		<script src="../js/mui.min.js"></script>
+		<script type="text/javascript">
+			mui.init()
+		</script>
+	</body>
+
+</html>

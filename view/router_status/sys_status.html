@@ -1,0 +1,134 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>系统状态</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	</head>
+	<style>
+		.mui-content .mui-table-view:last-child{margin-top: 15px;}
+		.mui-content .mui-table-view .mui-table-view-cell span:last-child{
+			color: #999;
+		}
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">系统状态</h1>
+		</header>
+		<div class="mui-content">
+		    <ul class="mui-table-view">
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>系统版本：</span>
+		                	<span id="sysver" class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>设备ID：</span>
+		                	<span id="devid"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>工作模式：</span>
+		                	<span id="workType"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>认证状态：</span>
+		                	<span id="auth"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>联网状态：</span>
+		                	<span id="wantype"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		    </ul>
+			<ul class="mui-table-view">
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>CPU使用率：</span>
+		                	<span id="cpu"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>内存使用率：</span>
+		                	<span id="mem"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>在线用户数：</span>
+		                	<span id="onlineuser"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>认证用户数：</span>
+		                	<span id="authuser"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>场所端编号：</span>
+		                	<span id="nmCenterName"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		        <li class="mui-table-view-cell mui-media">
+		            <a href="javascript:;">
+		                <div class="mui-media-body">
+		                	<span>绑定商户名：</span>
+		                	<span id="BUserName"  class="f_r"></span>
+		                </div>
+		            </a>
+		        </li>
+		    </ul>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript">
+		mui.init();
+		mui.plusReady(function(){
+			var sysstatus = JSON.parse(plus.storage.getItem("sysstatus"));
+			mui('#sysver')[0].innerHTML = sysstatus.sysver;
+			mui('#devid')[0].innerHTML = sysstatus.devid;
+			mui('#workType')[0].innerHTML = sysstatus.workType;
+			mui('#auth')[0].innerHTML = sysstatus.auth;
+			mui('#wantype')[0].innerHTML = sysstatus.wantype;
+			mui('#cpu')[0].innerHTML = sysstatus.cpu;
+			mui('#mem')[0].innerHTML = sysstatus.mem;
+			mui('#onlineuser')[0].innerHTML = sysstatus.onlineuser;
+			mui('#authuser')[0].innerHTML = sysstatus.authuser;
+			mui('#nmCenterName')[0].innerHTML = sysstatus.nmCenterName?sysstatus.nmCenterName:'无';
+			mui('#BUserName')[0].innerHTML = sysstatus.BUserName?sysstatus.BUserName:'无';
+		});
+	</script>
+</html>
